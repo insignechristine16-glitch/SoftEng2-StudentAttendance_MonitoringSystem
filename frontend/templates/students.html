@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}Student records{% endblock %}
+{% block crumb %}Students{% endblock %}
+{% block content %}
+{% if notice %}
+<div class="notice notice-{{ notice[0] }}" role="{{ 'status' if notice[0] == 'success' else 'alert' }}">{{ notice[1] }}</div>
+{% endif %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Student records</h1>
+    <p class="page-subtitle">Manage enrollment details and keep every section’s roster current.</p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('admin.add_student') }}">{{ m.icon('M12 4V20 M4 12H20') }} Add student</a>
+</div>
+
+<div class="stats-grid stats-three">
+  <article class="card stat-card">
+    <span class="stat-title">Students shown</span>
+    <span class="stat-icon">{{ m.icon('M16 21V19A4 4 0 0 0 12 15H6A4 4 0 0 0 2 19V21 M9 11A4 4 0 1 0 9 3A4 4 0 1 0 9 11 M17 4A4 4 0 0 1 17 11 M22 21V19A4 4 0 0 0 19 15.13') }}</span>
+    <strong class="stat-value">{{ stats.shown }}</strong>
+    <span class="stat-detail">Matching your current filters</span>
+  </article>
+  <article class="card stat-card">
+    <span class="stat-title">Class sections</span>
+    <span class="stat-icon">{{ m.icon('M3 3H8A4 4 0 0 1 12 7V22A4 4 0 0 0 8 18H3Z M21 3H16A4 4 0 0 0 12 7V22A4 4 0 0 1 16 18H21Z') }}</span>
+    <strong class="stat-value">{{ stats.sections }}</strong>
+    <span class="stat-detail">School Year 2026–27</span>
+  </article>
+  <article class="card stat-card">
+    <span class="stat-title">Active enrollments</span>
+    <span class="stat-icon">{{ m.icon('M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10') }}</span>
+    <strong class="stat-value">{{ stats.active }}</strong>
+    <span class="stat-detail">Within the current student list</span>
+  </article>
+</div>
+
+<section class="card">
+  <header class="card-header">
+    <div>
+      <h2 class="card-title">All students</h2>
+      <p class="small muted">{{ rows|length }} student record{{ '' if rows|length == 1 else 's' }}</p>
+    </div>
+    <form class="inline-form" method="get" action="{{ url_for('admin.students') }}">
+      <label class="toolbar-search">
+        {{ m.icon('M10.5 18A7.5 7.5 0 1 0 10.5 3A7.5 7.5 0 1 0 10.5 18 M16 16L22 22') }}
+        <input class="input" type="search" name="q" value="{{ q }}" maxlength="80" placeholder="Search name or student ID" aria-label="Search students">
+      </label>
+      <select class="select" name="section_id" aria-label="Filter by section">
+        <option value="">All sections</option>
+        {% for s in sections %}<option value="{{ s.id }}" {{ 'selected' if s.id == section_id }}>{{ s.code }}</option>{% endfor %}
+      </select>
+      <button class="btn btn-secondary btn-small" type="submit">Search</button>
+    </form>
+  </header>
+  {% if rows %}
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col">Student</th><th scope="col">Student ID</th><th scope="col">Section</th>
+          <th scope="col">Status</th><th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td>
+            <div class="student-cell">
+              <span class="student-avatar">{{ (r.name.split()|map('first')|join)[:2]|upper }}</span>
+              <span><strong>{{ r.name }}</strong><span class="cell-subtitle">{{ r.email }}</span></span>
+            </div>
+          </td>
+          <td class="student-number">{{ r.student_number }}</td>
+          <td>{{ r.section_code }}</td>
+          <td><span class="status-chip {{ 'status-present' if r.active else 'status-neutral' }}">{{ 'Active' if r.active else 'Inactive' }}</span></td>
+          <td><a class="text-action" href="{{ url_for('admin.edit_student', student_id=r.id) }}">Edit</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <span class="small muted">Showing all {{ rows|length }} record{{ '' if rows|length == 1 else 's' }}</span>
+  </div>
+  {% else %}
+  <div class="empty-state">
+    <h3>No students found</h3>
+    <p>{{ 'No students match your search.' if q or section_id else 'Add your first student to get started.' }}</p>
+    {% if q or section_id %}<a class="btn btn-secondary btn-small" href="{{ url_for('admin.students') }}">Show all students</a>{% endif %}
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}Class sections{% endblock %}
+{% block crumb %}Class sections{% endblock %}
+{% block content %}
+{% if notice %}
+<div class="notice notice-{{ notice[0] }}" role="status">{{ notice[1] }}</div>
+{% endif %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Class sections</h1>
+    <p class="page-subtitle">Keep sections, instructors, and student rosters organized.</p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('admin.add_section') }}">{{ m.icon('M12 4V20 M4 12H20') }} Add section</a>
+</div>
+
+<form class="card filters" method="get" action="{{ url_for('admin.sections') }}">
+  <label class="toolbar-search section-search">
+    {{ m.icon('M10.5 18A7.5 7.5 0 1 0 10.5 3A7.5 7.5 0 1 0 10.5 18 M16 16L22 22') }}
+    <input class="input" type="search" name="q" value="{{ q }}" maxlength="80" placeholder="Search section, subject, or instructor" aria-label="Search sections">
+  </label>
+  <button class="btn btn-secondary" type="submit">Search</button>
+  <span class="small muted">{{ rows|length }} section{{ '' if rows|length == 1 else 's' }} · School Year 2026–27</span>
+</form>
+
+{% if rows %}
+<div class="sections-grid">
+  {% for r in rows %}
+  <article class="card section-card">
+    <header class="section-header">
+      <span class="section-icon">{{ m.icon('M3 3H8A4 4 0 0 1 12 7V22A4 4 0 0 0 8 18H3Z M21 3H16A4 4 0 0 0 12 7V22A4 4 0 0 1 16 18H21Z') }}</span>
+      <div>
+        <h2>{{ r.code }}</h2>
+        <p class="muted">{{ r.subject }}</p>
+      </div>
+      <span class="status-chip status-present">Active</span>
+    </header>
+    <div class="section-meta">
+      <div>
+        <strong>{{ r.instructor }}</strong>
+        <span class="small muted">Assigned instructor</span>
+      </div>
+      <strong class="status-text-present">{{ r.students }} student{{ '' if r.students == 1 else 's' }}</strong>
+    </div>
+    <div class="section-bottom">
+      <div>
+        <p>{{ r.schedule }}</p>
+        <p>{{ r.room }}</p>
+      </div>
+      <a class="text-action" href="{{ url_for('admin.edit_section', section_id=r.id) }}">Edit section</a>
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<section class="card empty-state">
+  <h3>No sections found</h3>
+  <p>{{ 'No sections match your search.' if q else 'Add your first class section to get started.' }}</p>
+  {% if q %}<a class="btn btn-secondary btn-small" href="{{ url_for('admin.sections') }}">Show all sections</a>{% endif %}
+</section>
+{% endif %}
+{% endblock %}

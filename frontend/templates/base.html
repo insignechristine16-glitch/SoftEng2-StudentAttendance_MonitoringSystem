@@ -1,0 +1,68 @@
+{% import '_macros.html' as m %}
+{# Role-based sidebar: (url, label, icon path). Pages not built yet will 404 until their step. #}
+{% set navs = {
+  'instructor': [
+    ('/instructor', 'Overview', 'M3 3H10V10H3Z M14 3H21V10H14Z M3 14H10V21H3Z M14 14H21V21H14Z'),
+    ('/attendance', 'Take attendance', 'M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10'),
+    ('/records', 'Attendance records', 'M7 3H17L21 7V21H7Z M17 3V8H21 M3 7V23H17 M11 12H17 M11 16H17'),
+    ('/reports', 'Reports', 'M4 3V21H22 M8 17V12 M13 17V7 M18 17V4')],
+  'administrator': [
+    ('/students', 'Students', 'M16 21V19A4 4 0 0 0 12 15H6A4 4 0 0 0 2 19V21 M9 11A4 4 0 1 0 9 3A4 4 0 1 0 9 11 M17 4A4 4 0 0 1 17 11 M22 21V19A4 4 0 0 0 19 15.13'),
+    ('/sections', 'Class sections', 'M3 3H8A4 4 0 0 1 12 7V22A4 4 0 0 0 8 18H3Z M21 3H16A4 4 0 0 0 12 7V22A4 4 0 0 1 16 18H21Z'),
+    ('/admin/reports', 'Reports', 'M4 3V21H22 M8 17V12 M13 17V7 M18 17V4')],
+  'student': [
+    ('/student', 'My attendance', 'M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10')]
+} %}
+{% set logout = 'M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17' %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} · Student Attendance</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="{{ url_for('auth.login') }}">
+          <span class="brand-mark">{{ m.icon('M5 12L10 17L20 7') }}</span><span>rollcall</span>
+        </a>
+        <p class="sidebar-caption">Student attendance</p>
+        <div class="school-year"><span class="year-dot"></span> School Year 2026–27</div>
+        <p class="sidebar-caption nav-caption">Workspace</p>
+        <nav>
+          {% for href, label, ico in navs[session.role] %}
+          <a class="nav-item {{ 'active' if request.path.startswith(href) }}" href="{{ href }}">{{ m.icon(ico) }}<span>{{ label }}</span></a>
+          {% endfor %}
+        </nav>
+        <div class="sidebar-help">
+          {{ m.icon('M12 22A10 10 0 1 0 12 2A10 10 0 1 0 12 22 M9 8A3 3 0 0 1 15 8C15 11 12 11 12 14 M12 17V18') }}
+          <strong>A little help?</strong>
+          <p>Every student needs a status before a session can be saved.</p>
+        </div>
+        <div class="sidebar-footer">
+          <span class="user-avatar">{{ (session.name.split()|map('first')|join)[:2]|upper }}</span>
+          <div class="user-meta"><strong>{{ session.name }}</strong><span>{{ session.role|capitalize }}</span></div>
+          <a class="logout-button" aria-label="Sign out" title="Sign out" href="{{ url_for('auth.logout') }}">{{ m.icon(logout) }}</a>
+        </div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <strong>{{ session.role|capitalize }}</strong>
+            {{ m.icon('M8 5L15 12L8 19') }}
+            <span>{% block crumb %}{% endblock %}</span>
+          </div>
+          <span class="topbar-date">{{ m.icon('M3 8H21 M7 2V6 M17 2V6 M5 4H19A2 2 0 0 1 21 6V20A2 2 0 0 1 19 22H5A2 2 0 0 1 3 20V6A2 2 0 0 1 5 4Z M7 12H9 M12 12H14 M7 17H9') }}<span>School Year 2026–27</span></span>
+          <a class="icon-button mobile-logout" title="Sign out" aria-label="Sign out" href="{{ url_for('auth.logout') }}">{{ m.icon(logout) }}</a>
+        </header>
+        <main class="main-content" id="main-content">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
+    </div>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

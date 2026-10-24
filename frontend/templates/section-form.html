@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}{{ 'Edit' if section else 'Add' }} section{% endblock %}
+{% block crumb %}Class sections{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Class sections</p>
+    <h1 class="page-title">{{ 'Edit section' if section else 'Add section' }}</h1>
+    <p class="page-subtitle">Set up a section and assign its instructor.</p>
+  </div>
+  <a class="btn btn-secondary" href="{{ url_for('admin.sections') }}">Back to sections</a>
+</div>
+
+{% if errors %}
+<div class="notice notice-error" role="alert"><div>{% for e in errors %}<div>{{ e }}</div>{% endfor %}</div></div>
+{% endif %}
+
+<form class="card modal-form section-form" style="max-width:720px" method="post" novalidate
+      action="{{ url_for('admin.edit_section', section_id=section.id) if section else url_for('admin.add_section') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="form-grid">
+    <label class="field">
+      <span class="field-label">Section code</span>
+      <input class="input" name="code" maxlength="30" placeholder="BSIT 2A" value="{{ data.code }}" required>
+    </label>
+    <label class="field">
+      <span class="field-label">Room</span>
+      <input class="input" name="room" maxlength="80" placeholder="Room 204" value="{{ data.room }}" required>
+    </label>
+    <label class="field form-grid-wide">
+      <span class="field-label">Subject</span>
+      <input class="input" name="subject" maxlength="120" placeholder="Database Management" value="{{ data.subject }}" required>
+    </label>
+    <label class="field form-grid-wide">
+      <span class="field-label">Assigned instructor</span>
+      <select class="select" name="instructor_id" required>
+        <option value="" {{ 'selected' if not data.instructor_id }}>Select an instructor</option>
+        {% for i in instructors %}<option value="{{ i.id }}" {{ 'selected' if i.id == data.instructor_id }}>{{ i.name }}</option>{% endfor %}
+      </select>
+    </label>
+    <label class="field form-grid-wide">
+      <span class="field-label">Schedule</span>
+      <input class="input" name="schedule" maxlength="150" placeholder="Mon / Thu · 9:00–10:30 AM" value="{{ data.schedule }}" required>
+    </label>
+  </div>
+  <div class="modal-actions">
+    <a class="btn btn-secondary" href="{{ url_for('admin.sections') }}">Cancel</a>
+    <button class="btn btn-primary" type="submit">{{ 'Save changes' if section else 'Add section' }}</button>
+  </div>
+</form>
+{% endblock %}

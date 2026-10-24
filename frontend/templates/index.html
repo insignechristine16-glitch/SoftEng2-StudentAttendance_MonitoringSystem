@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <!-- Jinja-converted template for Flask authentication -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Student, Instructor, and Administrator sign-in for the Rollcall attendance monitoring interface.">
+    <title>Sign in · Rollcall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body class="signin-page">
+    <a class="skip-link" href="#main-content">Skip to sign in</a>
+    <div class="signin-shell">
+      <header class="signin-header">
+        <a class="brand" href="{{ url_for('auth.login') }}" aria-label="Rollcall home">
+          <span class="brand-mark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12L10 17L20 7"></path></svg></span>
+          <span>rollcall</span>
+        </a>
+        <span class="signin-school-year">School Year 2026–27</span>
+      </header>
+      <main class="signin-main" id="main-content">
+        <div class="signin-heading">
+          <p class="eyebrow">Student Attendance Monitoring System</p>
+          <h1>Welcome back.</h1>
+          <p>Choose your role to sign in to your school account.</p>
+        </div>
+
+        <!-- Display backend error if validation/authentication fails -->
+        {% if error %}
+          <div class="alert alert-error" role="alert" style="margin-bottom: 1.5rem; color: #b91c1c; background: #fee2e2; padding: 0.75rem 1rem; border-radius: 0.375rem; font-size: 0.875rem;">
+            {{ error }}
+          </div>
+        {% endif %}
+
+        <div class="signin-card">
+          <!-- Single unified form posting to the auth blueprint login route -->
+          <form class="signin-form" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <fieldset class="signin-role-picker">
+              <legend>Sign in as</legend>
+              <div class="signin-role-options">
+                <label class="signin-role">
+                  <input type="radio" id="role-student" name="role" value="student" {% if role == 'student' %}checked{% endif %}>
+                  <span class="signin-role-body">
+                    <span class="signin-role-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9L12 4L22 9L12 14Z M6 11V17Q12 21 18 17V11 M22 9V16"></path></svg></span>
+                    <span>Student</span>
+                  </span>
+                </label>
+                <label class="signin-role">
+                  <input type="radio" id="role-instructor" name="role" value="instructor" {% if role == 'instructor' %}checked{% endif %}>
+                  <span class="signin-role-body">
+                    <span class="signin-role-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3H21V15H13 M7 22V19 M3 22V20A4 4 0 0 1 11 20V22 M7 16A3 3 0 1 0 7 10A3 3 0 1 0 7 16 M16 7H18 M16 11H18"></path></svg></span>
+                    <span>Instructor</span>
+                  </span>
+                </label>
+                <label class="signin-role">
+                  <input type="radio" id="role-administrator" name="role" value="administrator" {% if role == 'administrator' %}checked{% endif %}>
+                  <span class="signin-role-body">
+                    <span class="signin-role-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3L21 7V12C21 17 17 21 12 23C7 21 3 17 3 12V7Z M8 12L11 15L16 9"></path></svg></span>
+                    <span>Administrator</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <div class="signin-form-heading">
+              <h2>Account sign in</h2>
+              <p>Use your ID or school email and password to continue.</p>
+            </div>
+
+            <label class="field" for="identifier">
+              <span class="field-label">Student ID or school email</span>
+              <input class="input" id="identifier" name="identifier" type="text" value="{{ ident if ident is not none else '' }}" placeholder="e.g. 2024-0018 or email" autocomplete="username" required>
+            </label>
+            
+            <label class="field" for="password">
+              <span class="field-label">Password</span>
+              <input class="input" id="password" name="password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+            </label>
+
+            <button class="btn btn-primary signin-submit" type="submit">Sign in <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12H20 M14 6L20 12L14 18"></path></svg></button>
+          </form>
+
+          <p class="signin-account-help">Need an account? Contact your school administrator.</p>
+        </div>
+        <p class="signin-account-note"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10V7A6 6 0 0 1 18 7V10 M4 10H20V22H4Z M12 15V18"></path></svg><span>Use the account provided by your school.</span></p>
+      </main>
+      <footer class="signin-footer">Student Attendance Monitoring System</footer>
+    </div>
+  </body>
+</html>

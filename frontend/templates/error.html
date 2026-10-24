@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error {{ code }} · Rollcall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body class="signin-page">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="signin-shell">
+      <header class="signin-header">
+        <a class="brand" href="{{ home }}" aria-label="Rollcall home">
+          <span class="brand-mark">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12L10 17L20 7"></path></svg>
+          </span>
+          <span>rollcall</span>
+        </a>
+        <span class="signin-school-year">School Year 2026–27</span>
+      </header>
+      <main class="signin-main" id="main-content">
+        <div class="signin-card text-center">
+          <p class="eyebrow">Error {{ code }}</p>
+          <h1 style="margin:0 0 12px;font-size:34px;letter-spacing:-.8px">{{ title }}</h1>
+          <p class="muted" style="margin:0 0 26px">{{ message }}</p>
+          <a class="btn btn-primary" href="{{ home }}">{{ 'Back to my dashboard' if signed_in else 'Back to sign in' }}</a>
+          {% if signed_in %}
+          <p class="small muted" style="margin:18px 0 0"><a href="{{ url_for('auth.logout') }}">Sign in with another account</a></p>
+          {% endif %}
+        </div>
+      </main>
+      <footer class="signin-footer">Student Attendance Monitoring System</footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}Take attendance{% endblock %}
+{% block crumb %}Take attendance{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Take attendance</h1>
+    <p class="page-subtitle">Choose a session, then give every student an attendance status.</p>
+  </div>
+  {% if section %}<span class="status-chip {{ 'status-present' if existing else 'status-neutral' }}">{{ 'Saved session' if existing else 'New session' }}</span>{% endif %}
+</div>
+
+<form class="card filters" method="get" action="{{ url_for('instructor.take_attendance') }}">
+  <label class="field">
+    <span class="field-label">Class section</span>
+    <select class="select" name="section_id" required>
+      <option value="" disabled {{ 'selected' if not section_id }}>Select a section</option>
+      {% for s in sections %}<option value="{{ s.id }}" {{ 'selected' if s.id == section_id }}>{{ s.code }} · {{ s.subject }}</option>{% endfor %}
+    </select>
+  </label>
+  <label class="field">
+    <span class="field-label">Session date</span>
+    <input class="input" type="date" name="date" value="{{ day }}" max="{{ today }}" required>
+  </label>
+  <button class="btn btn-primary" type="submit">Load student list</button>
+</form>
+
+{% if notice %}
+<div class="notice notice-{{ notice[0] }}" role="{{ 'status' if notice[0] == 'success' else 'alert' }}">{{ notice[1] }}</div>
+{% endif %}
+
+{% if section and rows %}
+<form method="post" action="{{ url_for('instructor.take_attendance') }}">
+  <input type="hidden" name="section_id" value="{{ section.id }}">
+  <input type="hidden" name="date" value="{{ day }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <section class="card roster">
+    <div class="toolbar">
+      <div>
+        <h2 class="card-title">Student roster</h2>
+        <p class="small muted">{{ rows|length }} students · {{ section.code }} · {{ section.subject }}</p>
+      </div>
+      <label class="toolbar-search">
+        {{ m.icon('M10.5 18A7.5 7.5 0 1 0 10.5 3A7.5 7.5 0 1 0 10.5 18 M16 16L22 22') }}
+        <input class="input" id="roster-search" type="search" placeholder="Search name or student ID" aria-label="Search students">
+      </label>
+      {% if not existing %}
+      <div class="toolbar-actions"><button class="btn btn-secondary btn-small" type="button" id="mark-rest">Mark remaining as present</button></div>
+      {% endif %}
+    </div>
+    <div class="summary-strip" aria-live="polite">
+      <span class="summary-item"><strong class="summary-value status-text-present" id="n-present">0</strong> Present</span>
+      <span class="summary-item"><strong class="summary-value status-text-late" id="n-late">0</strong> Late</span>
+      <span class="summary-item"><strong class="summary-value status-text-absent" id="n-absent">0</strong> Absent</span>
+      <span class="summary-item"><strong class="summary-value status-text-excused" id="n-excused">0</strong> Excused</span>
+      <strong class="marked-total" id="marked">0 / {{ rows|length }} marked</strong>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table roster-table">
+        <thead><tr><th scope="col">Student</th><th scope="col">Student ID</th><th scope="col">Attendance status</th></tr></thead>
+        <tbody>
+          {% for r in rows %}
+          <tr data-row="{{ (r.name ~ ' ' ~ r.student_number)|lower }}" class="{{ 'missing-row' if r.id in missing }}">
+            <td><div class="student-cell"><span class="student-avatar">{{ (r.name.split()|map('first')|join)[:2]|upper }}</span><span>{{ r.name }}</span></div></td>
+            <td class="student-number">{{ r.student_number }}</td>
+            <td>
+              <div class="status-options" role="group" aria-label="Attendance for {{ r.name }}">
+                {% for st in ['present', 'late', 'absent', 'excused'] %}
+                <label class="status-choice" data-status="{{ st }}">
+                  <input type="radio" name="status_{{ r.id }}" value="{{ st }}" {{ 'checked' if r.status == st }} {{ 'disabled' if existing }}>
+                  <span class="status-option">{{ st|capitalize }}</span>
+                </label>
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="no-match" hidden>No students match your search.</div>
+    <div class="table-footer"><span class="small muted">Showing all {{ rows|length }} students</span></div>
+  </section>
+  <div class="form-footer">
+    {% if existing %}
+    <p class="small muted">{{ m.icon('M6 10V7A6 6 0 0 1 18 7V10 M4 10H20V22H4Z M12 15V18') }} This session is saved and locked. Use Edit record to correct it.</p>
+    <div class="header-actions"><a class="btn btn-primary" href="/records/{{ existing.id }}/edit">Edit record</a></div>
+    {% else %}
+    <p class="small muted">{{ m.icon('M6 10V7A6 6 0 0 1 18 7V10 M4 10H20V22H4Z M12 15V18') }} Saved records can be updated from Attendance records.</p>
+    <div class="header-actions">
+      <a class="btn btn-secondary" href="{{ url_for('instructor.dashboard') }}">Cancel</a>
+      <button type="submit" class="btn btn-primary">Save attendance</button>
+    </div>
+    {% endif %}
+  </div>
+</form>
+{% elif not section and not notice %}
+<section class="card empty-state">
+  <h3>No session loaded</h3>
+  <p>Choose a class section and date above, then select “Load student list”.</p>
+</section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const rows = [...document.querySelectorAll('tbody tr[data-row]')];
+  const $ = id => document.getElementById(id);
+  function refresh() {
+    const c = {present: 0, late: 0, absent: 0, excused: 0};
+    rows.forEach(r => { const s = r.querySelector('input:checked'); if (s) c[s.value]++; });
+    for (const k in c) if ($('n-' + k)) $('n-' + k).textContent = c[k];
+    if ($('marked')) $('marked').textContent = Object.values(c).reduce((a, b) => a + b, 0) + ' / ' + rows.length + ' marked';
+  }
+  document.addEventListener('change', e => {
+    if (e.target.matches('.roster input[type=radio]')) { e.target.closest('tr').classList.remove('missing-row'); refresh(); }
+  });
+  $('roster-search')?.addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    let shown = 0;
+    rows.forEach(r => { r.hidden = !r.dataset.row.includes(q); shown += !r.hidden; });
+    $('no-match').hidden = shown > 0;
+  });
+  $('mark-rest')?.addEventListener('click', () => {
+    rows.forEach(r => { if (!r.hidden && !r.querySelector('input:checked')) { r.querySelector('input[value=present]').checked = true; r.classList.remove('missing-row'); } });
+    refresh();
+  });
+  refresh();
+</script>
+{% endblock %}

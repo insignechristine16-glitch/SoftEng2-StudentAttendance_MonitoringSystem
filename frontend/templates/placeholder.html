@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Signed in · Rollcall</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body class="signin-page">
+    <main class="signin-main">
+      <div class="signin-card text-center">
+        <div class="notice notice-success" role="status">Signed in successfully</div>
+        <h1>Hello, {{ name }}.</h1>
+        <p class="muted">Role: <strong>{{ role }}</strong>. Your {{ role }} screens are built in the next steps.</p>
+        <a class="btn btn-secondary" href="{{ url_for('auth.logout') }}">Sign out</a>
+      </div>
+    </main>
+  </body>
+</html>

@@ -241,7 +241,7 @@ textarea.input { resize: vertical; min-height: 94px; }
 .section-form .form-grid { gap: 18px; }
 
 /* 6. Role-based sign-in */
-.signin-page { background: #f2f6f3; }
+.signin-page { background: linear-gradient(180deg, #0b2a22e6, #0b2a2299 55%, #0b2a22cc), url("landing_bg.jpg") center / cover fixed no-repeat; }
 .signin-shell { display: flex; flex-direction: column; min-height: 100vh; }
 .signin-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 26px 44px; }
 .signin-header .brand { color: var(--forest); padding: 0; }
@@ -252,6 +252,13 @@ textarea.input { resize: vertical; min-height: 94px; }
 .signin-heading .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: .65px; margin-bottom: 12px; }
 .signin-heading h1 { margin: 0 0 12px; font-size: 36px; line-height: 1.2; letter-spacing: -.9px; }
 .signin-heading > p:last-child { margin: 0; color: var(--muted); font-size: 14px; }
+.signin-page .signin-header .brand,
+.signin-page .signin-heading h1 { color: #fff; }
+.signin-page .signin-heading .eyebrow,
+.signin-page .signin-school-year,
+.signin-page .signin-heading > p:last-child,
+.signin-page .signin-account-note,
+.signin-page .signin-footer { color: #dcebe2; }
 .signin-card { padding: 30px; border: 1px solid var(--line); border-radius: 16px; background: white; box-shadow: 0 12px 40px #102f2807; }
 .signin-role-picker { min-width: 0; margin: 0; padding: 0 0 26px; border: 0; }
 .signin-role-picker legend { margin-bottom: 12px; padding: 0; color: var(--muted); font-size: 12px; font-weight: 600; }

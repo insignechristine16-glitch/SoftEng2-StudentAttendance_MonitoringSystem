@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}Attendance records{% endblock %}
+{% block crumb %}Attendance records{% endblock %}
+{% block content %}
+{% if notice %}
+<div class="notice notice-{{ notice[0] }}" role="{{ 'status' if notice[0] == 'success' else 'alert' }}">{{ notice[1] }}</div>
+{% endif %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Attendance records</h1>
+    <p class="page-subtitle">Review saved sessions and keep your class records up to date.</p>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('instructor.take_attendance') }}">{{ m.icon('M12 4V20 M4 12H20') }} Take attendance</a>
+</div>
+
+<form class="card filters" method="get" action="{{ url_for('records.index') }}">
+  <label class="field">
+    <span class="field-label">Class section</span>
+    <select class="select" name="section_id">
+      <option value="">All assigned sections</option>
+      {% for s in sections %}<option value="{{ s.id }}" {{ 'selected' if s.id == section_id }}>{{ s.code }} · {{ s.subject }}</option>{% endfor %}
+    </select>
+  </label>
+  <label class="field">
+    <span class="field-label">From</span>
+    <input type="date" class="input" name="start_date" value="{{ start }}">
+  </label>
+  <label class="field">
+    <span class="field-label">To</span>
+    <input type="date" class="input" name="end_date" value="{{ end }}">
+  </label>
+  <label class="field">
+    <span class="field-label">Search</span>
+    <input type="search" class="input" name="q" value="{{ q }}" maxlength="80" placeholder="Section, subject, or student">
+  </label>
+  <button class="btn btn-primary" type="submit">Apply filters</button>
+</form>
+
+<section class="card">
+  <header class="card-header">
+    <div>
+      <h2 class="card-title">Saved sessions</h2>
+      <p class="small muted">{{ total }} attendance record{{ '' if total == 1 else 's' }} in this period</p>
+    </div>
+    <a class="btn btn-secondary btn-small" href="/reports">{{ m.icon('M4 3V21H22 M8 17V12 M13 17V7 M18 17V4') }} Open reports</a>
+  </header>
+  {% if rows %}
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col">Class / Section</th><th scope="col">Session date</th><th scope="col">Present</th>
+          <th scope="col">Late</th><th scope="col">Absent</th><th scope="col">Excused</th>
+          <th scope="col">Rate</th><th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr>
+          <td><strong>{{ r.subject }}</strong><span class="cell-subtitle">{{ r.code }}</span></td>
+          <td>{{ r.session_date }}</td>
+          <td>{{ r.present }}</td>
+          <td>{{ r.late }}</td>
+          <td class="status-text-absent">{{ r.absent }}</td>
+          <td>{{ r.excused }}</td>
+          <td class="status-text-present"><strong>{{ '%.1f%%'|format(r.rate) if r.rate is not none else '—' }}</strong></td>
+          <td><a class="text-action" href="{{ url_for('records.edit', session_id=r.id) }}">Edit record</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <span class="small muted">Showing {{ (page - 1) * per_page + 1 }}–{{ (page - 1) * per_page + rows|length }} of {{ total }} records</span>
+    {% if pages > 1 %}
+    <div class="pagination native-pagination">
+      {% if page > 1 %}<a class="page-button" aria-label="Previous page" href="{{ url_for('records.index', page=page - 1, **filters) }}">‹</a>{% else %}<span class="page-button" aria-disabled="true">‹</span>{% endif %}
+      <span class="page-button active">{{ page }}</span>
+      <span class="small muted">of {{ pages }}</span>
+      {% if page < pages %}<a class="page-button" aria-label="Next page" href="{{ url_for('records.index', page=page + 1, **filters) }}">›</a>{% else %}<span class="page-button" aria-disabled="true">›</span>{% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% elif not (notice and notice[0] == 'error') %}
+  <div class="empty-state">
+    <h3>No records found</h3>
+    <p>No saved sessions match these filters.</p>
+    <a class="btn btn-secondary btn-small" href="{{ url_for('records.index', start_date='', end_date='') }}">Show all dates</a>
+  </div>
+  {% endif %}
+</section>
+<p class="small muted rate-note">Rate = (Present + Late) ÷ (Present + Late + Absent). Excused students are excluded.</p>
+{% endblock %}

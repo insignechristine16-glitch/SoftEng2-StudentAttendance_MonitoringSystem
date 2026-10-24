@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}Attendance reports{% endblock %}
+{% block crumb %}Reports{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Attendance reports</h1>
+    <p class="page-subtitle">{{ 'Attendance across every class section, summarized in one place.' if admin else 'Turn your attendance records into a clear, shareable summary.' }}</p>
+  </div>
+</div>
+
+<form class="card filters" method="get" action="{{ action }}">
+  <label class="field">
+    <span class="field-label">Class section</span>
+    <select class="select" name="section_id">
+      <option value="">All sections</option>
+      {% for s in sections %}<option value="{{ s.id }}" {{ 'selected' if s.id == section_id }}>{{ s.code }} · {{ s.subject }}</option>{% endfor %}
+    </select>
+  </label>
+  <label class="field">
+    <span class="field-label">From</span>
+    <input class="input" type="date" name="start_date" value="{{ start }}">
+  </label>
+  <label class="field">
+    <span class="field-label">To</span>
+    <input class="input" type="date" name="end_date" value="{{ end }}">
+  </label>
+  <button class="btn btn-primary" type="submit">{{ m.icon('M4 3V21H22 M8 17V12 M13 17V7 M18 17V4') }} Generate report</button>
+</form>
+
+{% if notice %}
+<div class="notice notice-{{ notice[0] }}" role="alert">{{ notice[1] }}</div>
+{% endif %}
+
+{% if report %}
+{% set t = report.totals %}
+{% if not t.sessions %}
+<section class="card empty-state">
+  <h3>No attendance recorded</h3>
+  <p>No saved sessions match these filters.</p>
+  <a class="btn btn-secondary btn-small" href="{{ action }}">Clear filters</a>
+</section>
+{% else %}
+<div class="stats-grid stats-three">
+  <article class="card stat-card">
+    <span class="stat-title">Attendance rate</span>
+    <span class="stat-icon">{{ m.icon('M3 17L9 11L13 15L21 6 M15 6H21V12') }}</span>
+    <strong class="stat-value">{{ '%.1f%%'|format(t.rate) if t.rate is not none else '—' }}</strong>
+    <span class="stat-detail">Present + Late · Excused excluded</span>
+  </article>
+  <article class="card stat-card">
+    <span class="stat-title">Sessions recorded</span>
+    <span class="stat-icon">{{ m.icon('M3 8H21 M7 2V6 M17 2V6 M5 4H19A2 2 0 0 1 21 6V20A2 2 0 0 1 19 22H5A2 2 0 0 1 3 20V6A2 2 0 0 1 5 4Z M7 12H9 M12 12H14 M7 17H9') }}</span>
+    <strong class="stat-value">{{ t.sessions }}</strong>
+    <span class="stat-detail">In the selected date range</span>
+  </article>
+  <article class="card stat-card">
+    <span class="stat-title">Students in report</span>
+    <span class="stat-icon">{{ m.icon('M16 21V19A4 4 0 0 0 12 15H6A4 4 0 0 0 2 19V21 M9 11A4 4 0 1 0 9 3A4 4 0 1 0 9 11 M17 4A4 4 0 0 1 17 11 M22 21V19A4 4 0 0 0 19 15.13') }}</span>
+    <strong class="stat-value">{{ t.students }}</strong>
+    <span class="stat-detail">Across the selected sections</span>
+  </article>
+</div>
+
+<div class="report-grid">
+  <section class="card report-chart">
+    <header class="card-header">
+      <div>
+        <h2 class="card-title">Attendance over time</h2>
+        <p class="small muted">Attendance rate per recorded session{% if t.sessions > report.sessions|length %} · latest {{ report.sessions|length }} of {{ t.sessions }}{% endif %}</p>
+      </div>
+    </header>
+    <div class="chart-bars report-bars" role="img" aria-label="Attendance rates by session">
+      {% for s in report.sessions %}
+      <div class="chart-bar-item">
+        <span class="chart-value">{{ '%.0f%%'|format(s.rate) if s.rate is not none else '—' }}</span>
+        <div class="chart-bar" style="height:{{ s.rate or 0 }}%" title="{{ s.code }} · {{ s.session_date }}: {{ '%.1f%%'|format(s.rate) if s.rate is not none else 'no countable marks' }}"></div>
+        <span class="chart-label">{{ s.session_date[5:] }}{% if not section_id %}<br>{{ s.code.split()[-1] }}{% endif %}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="card report-breakdown">
+    <header class="card-header">
+      <div>
+        <h2 class="card-title">Status breakdown</h2>
+        <p class="small muted">All marks in the selected period</p>
+      </div>
+    </header>
+    {% for key in ['present', 'late', 'absent', 'excused'] %}
+    <div class="breakdown-row">
+      <span class="status-chip status-{{ key }}">{{ key|capitalize }}</span>
+      <strong>{{ t[key] }}</strong>
+    </div>
+    {% endfor %}
+  </section>
+</div>
+
+<section class="card">
+  <header class="card-header">
+    <div>
+      <h2 class="card-title">Student breakdown</h2>
+      <p class="small muted">Session totals for each student · lowest rate first</p>
+    </div>
+  </header>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th scope="col">Student</th><th scope="col">Student ID</th><th scope="col">Section</th>
+          <th scope="col">Present</th><th scope="col">Late</th><th scope="col">Absent</th><th scope="col">Excused</th><th scope="col">Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in report.students %}
+        <tr>
+          <td>{{ r.name }}{% if not r.active %} <span class="status-chip status-neutral">Inactive</span>{% endif %}</td>
+          <td class="student-number">{{ r.student_number }}</td>
+          <td>{{ r.code }}</td>
+          <td>{{ r.present }}</td><td>{{ r.late }}</td><td class="status-text-absent">{{ r.absent }}</td><td>{{ r.excused }}</td>
+          <td><strong>{{ '%.1f%%'|format(r.rate) if r.rate is not none else '—' }}</strong></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="table-footer">
+    <span class="small muted">{{ report.students|length }} student{{ '' if report.students|length == 1 else 's' }} in this report</span>
+  </div>
+</section>
+<p class="small muted rate-note">Rate = (Present + Late) ÷ (Present + Late + Absent). Excused marks are excluded.</p>
+{% endif %}
+{% endif %}
+{% endblock %}

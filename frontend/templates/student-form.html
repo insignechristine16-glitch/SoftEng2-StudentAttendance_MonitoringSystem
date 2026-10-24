@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}{{ 'Edit' if student else 'Add' }} student{% endblock %}
+{% block crumb %}Students{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Student records</p>
+    <h1 class="page-title">{{ 'Edit student' if student else 'Add student' }}</h1>
+    <p class="page-subtitle">Create a student record and assign a class section.</p>
+  </div>
+  <a class="btn btn-secondary" href="{{ url_for('admin.students') }}">Back to students</a>
+</div>
+
+{% if errors %}
+<div class="notice notice-error" role="alert"><div>{% for e in errors %}<div>{{ e }}</div>{% endfor %}</div></div>
+{% endif %}
+
+<form class="card modal-form section-form" style="max-width:720px" method="post" novalidate
+      action="{{ url_for('admin.edit_student', student_id=student.id) if student else url_for('admin.add_student') }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <div class="form-grid">
+    <label class="field">
+      <span class="field-label">Student ID</span>
+      <input class="input" name="student_number" maxlength="40" placeholder="2024-0086" value="{{ data.student_number }}" required>
+    </label>
+    <label class="field">
+      <span class="field-label">Full name</span>
+      <input class="input" name="name" maxlength="100" placeholder="Isabel Santos" value="{{ data.name }}" required>
+    </label>
+    <label class="field form-grid-wide">
+      <span class="field-label">School email</span>
+      <input class="input" name="email" type="email" maxlength="120" placeholder="isabel@school.edu" value="{{ data.email }}" required>
+    </label>
+    <label class="field">
+      <span class="field-label">Class section</span>
+      <select class="select" name="section_id" required>
+        <option value="" {{ 'selected' if not data.section_id }}>Select a section</option>
+        {% for s in sections %}<option value="{{ s.id }}" {{ 'selected' if s.id == data.section_id }}>{{ s.code }} · {{ s.subject }}</option>{% endfor %}
+      </select>
+    </label>
+    <label class="field">
+      <span class="field-label">Enrollment status</span>
+      <select class="select" name="active">
+        <option value="1" {{ 'selected' if data.active == 1 }}>Active</option>
+        <option value="0" {{ 'selected' if data.active != 1 }}>Inactive</option>
+      </select>
+    </label>
+  </div>
+  {% if not student %}<p class="small muted">{{ m.icon('M6 10V7A6 6 0 0 1 18 7V10 M4 10H20V22H4Z M12 15V18') }} A default password is set and can be shared with the student.</p>{% endif %}
+  <div class="modal-actions">
+    <a class="btn btn-secondary" href="{{ url_for('admin.students') }}">Cancel</a>
+    <button class="btn btn-primary" type="submit">{{ 'Save changes' if student else 'Add student' }}</button>
+  </div>
+</form>
+{% endblock %}

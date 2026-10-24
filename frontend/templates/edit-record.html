@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as m %}
+{% block title %}Edit attendance record{% endblock %}
+{% block crumb %}Edit attendance record{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <p class="eyebrow">Saved attendance</p>
+    <h1 class="page-title">Edit attendance record</h1>
+    <p class="page-subtitle">{{ rec.code }} · {{ rec.subject }} · {{ rec.session_date }}</p>
+  </div>
+  <a class="btn btn-secondary" href="{{ url_for('records.index') }}">Back to records</a>
+</div>
+
+{% if notice %}
+<div class="notice notice-{{ notice[0] }}" role="{{ 'status' if notice[0] == 'success' else 'alert' }}">{{ notice[1] }}</div>
+{% endif %}
+
+<form method="post" action="{{ url_for('records.edit', session_id=rec.id) }}">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+  <section class="card roster">
+    <div class="toolbar">
+      <div>
+        <h2 class="card-title">Student roster</h2>
+        <p class="small muted">{{ rows|length }} students · {{ rec.code }}</p>
+      </div>
+      <label class="toolbar-search">
+        {{ m.icon('M10.5 18A7.5 7.5 0 1 0 10.5 3A7.5 7.5 0 1 0 10.5 18 M16 16L22 22') }}
+        <input class="input" id="roster-search" type="search" placeholder="Search name or student ID" aria-label="Search students">
+      </label>
+      <div class="toolbar-actions">
+        <button class="btn btn-secondary btn-small" type="button" id="view-marked" aria-pressed="false">View marked roster</button>
+        <button class="btn btn-secondary btn-small" type="button" id="review-unmarked" aria-pressed="false">Review unmarked</button>
+      </div>
+    </div>
+    <div class="summary-strip" aria-live="polite">
+      <span class="summary-item"><strong class="summary-value status-text-present" id="n-present">0</strong> Present</span>
+      <span class="summary-item"><strong class="summary-value status-text-late" id="n-late">0</strong> Late</span>
+      <span class="summary-item"><strong class="summary-value status-text-absent" id="n-absent">0</strong> Absent</span>
+      <span class="summary-item"><strong class="summary-value status-text-excused" id="n-excused">0</strong> Excused</span>
+      <strong class="marked-total" id="marked">0 / {{ rows|length }} marked</strong>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table roster-table">
+        <thead><tr><th scope="col">Student</th><th scope="col">Student ID</th><th scope="col">Attendance status</th></tr></thead>
+        <tbody>
+          {% for r in rows %}
+          <tr data-row="{{ (r.name ~ ' ' ~ r.student_number)|lower }}" class="{{ 'missing-row' if r.id in missing }}">
+            <td><div class="student-cell"><span class="student-avatar">{{ (r.name.split()|map('first')|join)[:2]|upper }}</span><span>{{ r.name }}</span></div></td>
+            <td class="student-number">{{ r.student_number }}</td>
+            <td>
+              <div class="status-options" role="group" aria-label="Attendance for {{ r.name }}">
+                {% for st in ['present', 'late', 'absent', 'excused'] %}
+                <label class="status-choice" data-status="{{ st }}">
+                  <input type="radio" name="status_{{ r.id }}" value="{{ st }}" {{ 'checked' if r.status == st }}>
+                  <span class="status-option">{{ st|capitalize }}</span>
+                </label>
+                {% endfor %}
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="empty-state" id="no-match" hidden>No students match your search.</div>
+    <div class="table-footer"><span class="small muted">Showing all {{ rows|length }} students</span></div>
+  </section>
+
+  <section class="card reason-card">
+    <label class="field">
+      <span class="field-label">Reason for change</span>
+      <textarea name="reason" class="input" rows="3" maxlength="500" placeholder="Briefly explain the correction" required
+                {{ 'aria-invalid=true' if notice and notice[0] == 'error' }}>{{ reason }}</textarea>
+    </label>
+  </section>
+
+  <div class="form-footer">
+    <p class="small muted">Changes update this saved session and are recorded in the edit log.</p>
+    <div class="header-actions">
+      <a class="btn btn-secondary" href="{{ url_for('records.index') }}">Cancel</a>
+      <button class="btn btn-primary" type="submit">Save changes</button>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const rows = [...document.querySelectorAll('tbody tr[data-row]')];
+  const $ = id => document.getElementById(id);
+  function refresh() {
+    const c = {present: 0, late: 0, absent: 0, excused: 0};
+    rows.forEach(r => { const s = r.querySelector('input:checked'); if (s) c[s.value]++; });
+    for (const k in c) $('n-' + k).textContent = c[k];
+    $('marked').textContent = Object.values(c).reduce((a, b) => a + b, 0) + ' / ' + rows.length + ' marked';
+  }
+  document.addEventListener('change', e => {
+    if (e.target.matches('.roster input[type=radio]')) { e.target.closest('tr').classList.remove('missing-row'); refresh(); applyFilters(); }
+  });
+  let mode = 'all';                                  // all | marked | unmarked
+  function applyFilters() {
+    const q = $('roster-search').value.trim().toLowerCase();
+    let shown = 0;
+    rows.forEach(r => {
+      const marked = !!r.querySelector('input:checked');
+      const okMode = mode === 'all' || (mode === 'marked') === marked;
+      r.hidden = !(okMode && r.dataset.row.includes(q));
+      shown += !r.hidden;
+    });
+    $('no-match').hidden = shown > 0;
+  }
+  $('roster-search').addEventListener('input', applyFilters);
+  [['view-marked', 'marked'], ['review-unmarked', 'unmarked']].forEach(([id, m]) => {
+    $(id).addEventListener('click', () => {
+      mode = mode === m ? 'all' : m;                 // click again to show everyone
+      ['view-marked', 'review-unmarked'].forEach(b => {
+        const on = (b === 'view-marked' ? 'marked' : 'unmarked') === mode;
+        $(b).setAttribute('aria-pressed', on); $(b).classList.toggle('btn-soft', on); $(b).classList.toggle('btn-secondary', !on);
+      });
+      applyFilters();
+    });
+  });
+  refresh();
+</script>
+{% endblock %}
