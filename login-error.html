@@ -1,98 +1,119 @@
 <!doctype html>
 <html lang="en">
-  <!-- Rollcall UI prototype — Laboratory 6, Task 2C. Static sample screens; shared styles: assets/styles.css. -->
+  <!-- HTML/CSS UI prototype. Role selection shows the corresponding sign-in form. -->
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Student Attendance Monitoring System: HTML/CSS user interface prototype for Laboratory 6, Task 2C.">
-    <title>Sign in · Student Attendance</title>
+    <meta name="description" content="Student, Instructor, and Administrator sign-in for the Rollcall attendance monitoring interface.">
+    <title>Sign in · Rollcall</title>
     <link rel="stylesheet" href="assets/styles.css">
   </head>
-  <body>
-    <a class="skip-link" href="#main-content">Skip to main content</a>
-    <!-- Screen content: layout, input controls, sample output, and linked UI states. -->
-    <main class="login-layout" id="main-content">
-      <section class="login-story">
-        <a class="brand" href="index.html">
-          <span class="brand-mark">
-            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12L10 17L20 7"></path>
-            </svg>
-          </span>
+  <body class="signin-page">
+    <a class="skip-link" href="#main-content">Skip to sign in</a>
+    <div class="signin-shell">
+      <header class="signin-header">
+        <a class="brand" href="index.html" aria-label="Rollcall home">
+          <span class="brand-mark"><svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12L10 17L20 7"></path></svg></span>
           <span>rollcall</span>
         </a>
-        <div class="login-intro">
-          <p class="eyebrow">Every student. Every session.</p>
-          <h1>A clearer picture<br>of every classroom.</h1>
-          <p>One place to mark attendance, understand patterns, and keep your school connected.</p>
-        </div>
-        <div class="login-roster-card">
-          <p class="eyebrow">Today’s class</p>
-          <h2>Database Management</h2>
-          <p>BSIT 2A · 9:00–10:30 AM</p>
-          <div class="login-roster-row">
-            <span class="user-avatar">AR</span>
-            <span>Alex Reyes</span>
-            <span class="status-chip status-present">Present</span>
-          </div>
-          <div class="login-roster-row">
-            <span class="user-avatar">BC</span>
-            <span>Bea Cruz</span>
-            <span class="status-chip status-present">Present</span>
-          </div>
-        </div>
-      </section>
-      <section class="login-form-panel">
-        <div class="login-form">
-          <p class="eyebrow">Student attendance monitoring system</p>
+        <span class="signin-school-year">School Year 2026–27</span>
+      </header>
+      <main class="signin-main" id="main-content">
+        <div class="signin-heading">
+          <p class="eyebrow">Student Attendance Monitoring System</p>
           <h1>Welcome back.</h1>
-          <p class="page-subtitle">Sign in with your school account to continue.</p>
-          <div class="notice notice-error" role="alert">Check your school email or student ID and password, then try again.</div>
-          <form method="get" action="dashboard.html">
-            <label class="field">
-              <span class="field-label">School email or student ID</span>
-              <input class="input" type="text" autocomplete="username" value="maria@rollcall.local" placeholder="maria@rollcall.local" required autofocus>
-            </label>
-            <label class="field">
-              <span class="field-label">Password</span>
-              <input class="input" type="password" autocomplete="current-password" placeholder="Enter your password" required>
-            </label>
-            <button class="btn btn-primary login-submit" type="submit">Sign in <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 12H20 M14 6L20 12L14 18"></path>
-              </svg>
-            </button>
-          </form>
-          <details class="login-demo" open>
-            <summary>Explore the prototype</summary>
-            <p class="small muted">Choose a role to preview its screens.</p>
-            <a class="demo-account" href="dashboard.html">
-              <strong>Instructor</strong>
-              <span>View screens</span>
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 12H20 M14 6L20 12L14 18"></path>
-              </svg>
-            </a>
-            <a class="demo-account" href="students.html">
-              <strong>Administrator</strong>
-              <span>View screens</span>
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 12H20 M14 6L20 12L14 18"></path>
-              </svg>
-            </a>
-            <a class="demo-account" href="student.html">
-              <strong>Student</strong>
-              <span>View screens</span>
-              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 12H20 M14 6L20 12L14 18"></path>
-              </svg>
-            </a>
-          </details>
-          <p class="small">
-            <a href="design-notes.html">Read the UI design notes</a>
-          </p>
-          <p class="small muted">Need an account? Contact your school administrator.</p>
+          <p>Choose your role to sign in to your school account.</p>
         </div>
-      </section>
-    </main>
+        <div class="signin-card">
+          <!-- Native radio controls switch forms through CSS; no scripts are used. -->
+          <fieldset class="signin-role-picker">
+            <legend>Sign in as</legend>
+            <div class="signin-role-options">
+              <label class="signin-role">
+                <input type="radio" id="role-student" name="signin-role" value="student">
+                <span class="signin-role-body">
+                  <span class="signin-role-icon"><svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9L12 4L22 9L12 14Z M6 11V17Q12 21 18 17V11 M22 9V16"></path></svg></span>
+                  <span>Student</span>
+                </span>
+              </label>
+              <label class="signin-role">
+                <input type="radio" id="role-instructor" name="signin-role" value="instructor" checked>
+                <span class="signin-role-body">
+                  <span class="signin-role-icon"><svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3H21V15H13 M7 22V19 M3 22V20A4 4 0 0 1 11 20V22 M7 16A3 3 0 1 0 7 10A3 3 0 1 0 7 16 M16 7H18 M16 11H18"></path></svg></span>
+                  <span>Instructor</span>
+                </span>
+              </label>
+              <label class="signin-role">
+                <input type="radio" id="role-administrator" name="signin-role" value="administrator">
+                <span class="signin-role-body">
+                  <span class="signin-role-icon"><svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3L21 7V12C21 17 17 21 12 23C7 21 3 17 3 12V7Z M8 12L11 15L16 9"></path></svg></span>
+                  <span>Administrator</span>
+                </span>
+              </label>
+            </div>
+          </fieldset>
+          <section class="role-signin" id="signin-student" aria-labelledby="student-signin-title">
+            <div class="signin-form-heading">
+              <h2 id="student-signin-title">Student sign in</h2>
+              <p>Use your student ID or school email to continue.</p>
+            </div>
+            <!-- Static UI: the form opens the matching role's sample screen. -->
+            <form class="signin-form" action="student.html" method="get">
+              <label class="field" for="student-identifier">
+                <span class="field-label">Student ID or school email</span>
+                <input class="input" id="student-identifier" type="text" placeholder="e.g. 2024-0018" autocomplete="username" required>
+              </label>
+              <label class="field" for="student-password">
+                <span class="field-label">Password</span>
+                <input class="input" id="student-password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+              </label>
+              <button class="btn btn-primary signin-submit" type="submit">Sign in as Student <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12H20 M14 6L20 12L14 18"></path></svg></button>
+            </form>
+          </section>
+          <section class="role-signin" id="signin-instructor" aria-labelledby="instructor-signin-title">
+            <div class="signin-form-heading">
+              <h2 id="instructor-signin-title">Instructor sign in</h2>
+              <p>Use your instructor account to manage class attendance.</p>
+            </div>
+              <div class="notice notice-error" role="alert">
+                Check your school email and password, then try again.
+              </div>
+            <!-- Static UI: the form opens the matching role's sample screen. -->
+            <form class="signin-form" action="dashboard.html" method="get">
+              <label class="field" for="instructor-identifier">
+                <span class="field-label">School email</span>
+                <input class="input" id="instructor-identifier" type="email" placeholder="instructor@school.edu" autocomplete="username" required>
+              </label>
+              <label class="field" for="instructor-password">
+                <span class="field-label">Password</span>
+                <input class="input" id="instructor-password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+              </label>
+              <button class="btn btn-primary signin-submit" type="submit">Sign in as Instructor <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12H20 M14 6L20 12L14 18"></path></svg></button>
+            </form>
+          </section>
+          <section class="role-signin" id="signin-administrator" aria-labelledby="administrator-signin-title">
+            <div class="signin-form-heading">
+              <h2 id="administrator-signin-title">Administrator sign in</h2>
+              <p>Use your administrator account to manage school records.</p>
+            </div>
+            <!-- Static UI: the form opens the matching role's sample screen. -->
+            <form class="signin-form" action="students.html" method="get">
+              <label class="field" for="administrator-identifier">
+                <span class="field-label">School email</span>
+                <input class="input" id="administrator-identifier" type="email" placeholder="admin@school.edu" autocomplete="username" required>
+              </label>
+              <label class="field" for="administrator-password">
+                <span class="field-label">Password</span>
+                <input class="input" id="administrator-password" type="password" placeholder="Enter your password" autocomplete="current-password" required>
+              </label>
+              <button class="btn btn-primary signin-submit" type="submit">Sign in as Administrator <svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12H20 M14 6L20 12L14 18"></path></svg></button>
+            </form>
+          </section>
+          <p class="signin-account-help">Need an account? Contact your school administrator.</p>
+        </div>
+        <p class="signin-account-note"><svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 10V7A6 6 0 0 1 18 7V10 M4 10H20V22H4Z M12 15V18"></path></svg><span>Use the account provided by your school.</span></p>
+      </main>
+      <footer class="signin-footer">Student Attendance Monitoring System</footer>
+    </div>
   </body>
 </html>

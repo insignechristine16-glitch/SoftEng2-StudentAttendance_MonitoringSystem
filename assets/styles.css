@@ -232,53 +232,72 @@ textarea.input { resize: vertical; min-height: 94px; }
 .modal-form .form-footer .btn { min-width: 110px; }
 .section-form .form-grid { gap: 18px; }
 
-/* 6. Sign-in screen */
-.login-layout { min-height: 100vh; display: grid; grid-template-columns: minmax(400px, .9fr) minmax(450px, 1.1fr); background: white; }
-.login-story { display: flex; flex-direction: column; align-items: flex-start; padding: 44px 54px; background: var(--forest); color: white; }
-.login-story .brand { padding: 0; }
-.login-story .eyebrow { color: var(--lime); margin-top: 100px; }
-.login-story h1 { font-size: clamp(35px, 3.4vw, 49px); font-weight: 650; line-height: 1.28; letter-spacing: -1.3px; margin: 18px 0 24px; max-width: 550px; }
-.login-story > p { color: #bdd4c7; font-size: 17px; line-height: 1.65; margin: 0; max-width: 520px; }
-.login-story .story-footer { color: #aac5b6; font-size: 12px; margin-top: auto; padding-top: 50px; }
-.login-roster-card { width: 100%; margin-top: 60px; border: 1px solid #416454; background: #1c4437; border-radius: 18px; padding: 25px; }
-.login-roster-card .eyebrow { margin: 0 0 12px; color: #a8c8b6; }
-.login-roster-card h2 { margin: 0; font-size: 22px; font-weight: 600; }
-.login-roster-card p { font-size: 12px; color: #bdd4c7; margin: 10px 0 18px; }
-.login-roster-card .student-cell { justify-content: space-between; padding: 12px 0; border-top: 1px solid #3a5e4c; }
-.login-roster-card .student-cell > span { display: flex; align-items: center; gap: 12px; }
-.login-roster-card .student-cell strong { color: white; }
-.login-form-panel { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px clamp(35px, 6vw, 100px); }
-.login-form-panel > .eyebrow, .login-form-panel > h2, .login-form-panel > p, .login-form-panel > form, .login-form-panel > .login-demo, .login-form-panel > .notice { width: 100%; max-width: 576px; }
-.login-form-panel > h2 { font-size: 36px; line-height: 1.2; letter-spacing: -.9px; margin: 36px 0 16px; }
-.login-form-panel > p { color: var(--muted); font-size: 15px; margin: 0 0 40px; }
-.login-form { display: grid; gap: 24px; }
-.login-form-panel > .login-form { display: block; width: 100%; max-width: 576px; }
-.login-form > .eyebrow { margin: 0; font-size: 10px; text-transform: uppercase; letter-spacing: .5px; }
-.login-form > h1 { font-size: 36px; font-weight: 720; line-height: 1.2; letter-spacing: -.9px; margin: 36px 0 16px; }
-.login-form > .page-subtitle { margin: 0 0 36px; color: var(--muted); font-size: 15px; }
-.login-form > form { display: grid; gap: 24px; }
-.login-submit { width: 100%; }
-.login-form .input { min-height: 52px; }
-.login-form .field-label { font-size: 13px; color: var(--ink); }
-.login-form .btn { min-height: 50px; }
-.login-form > .small { color: var(--muted); margin: -6px 0 0; }
-.login-demo { margin-top: 30px; padding-top: 24px; border-top: 1px solid var(--line); }
-.login-demo summary { color: var(--muted); font-size: 12px; cursor: pointer; }
-.login-demo > p { color: var(--muted); font-size: 12px; }
-.demo-account { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 16px; margin-top: 12px; padding: 11px 13px; border-radius: 8px; background: #f3f7f4; font-size: 12px; }
-.demo-account { width: 100%; border: 0; text-align: left; }
-.demo-account:hover { background: #e6f1e9; }
-.demo-account > span { flex: 1; }
-.demo-account > svg { width: 16px; height: 16px; }
-.demo-account strong { color: var(--emerald); }
-.demo-account button { font-size: 12px; }
-.form-error { color: var(--red); font-size: 12px; margin: 0; }
-.login-intro > p:not(.eyebrow) { color: #bdd4c7; font-size: 17px; line-height: 1.65; margin: 0; max-width: 520px; }
-.login-intro .eyebrow { text-transform: uppercase; letter-spacing: .7px; }
-.login-roster-row { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-top: 1px solid #3a5e4c; font-size: 13px; color: white; }
-.login-roster-row .status-chip { margin-left: auto; }
-.login-caption { color: #aac5b6 !important; font-size: 12px !important; margin-top: auto !important; padding-top: 50px; }
-.login-form > .login-demo + p { font-size: 12px; color: var(--muted); margin: 26px 0 0; }
+/* 6. Role-based sign-in */
+.signin-page { background: #f2f6f3; }
+.signin-shell { display: flex; flex-direction: column; min-height: 100vh; }
+.signin-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 26px 44px; }
+.signin-header .brand { color: var(--forest); padding: 0; }
+.signin-header .brand-mark { color: white; background: var(--emerald); }
+.signin-school-year { color: var(--muted); font-size: 12px; }
+.signin-main { width: min(610px, calc(100% - 40px)); margin: auto; padding: 24px 0 30px; }
+.signin-heading { text-align: center; margin-bottom: 28px; }
+.signin-heading .eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: .65px; margin-bottom: 12px; }
+.signin-heading h1 { margin: 0 0 12px; font-size: 36px; line-height: 1.2; letter-spacing: -.9px; }
+.signin-heading > p:last-child { margin: 0; color: var(--muted); font-size: 14px; }
+.signin-card { padding: 30px; border: 1px solid var(--line); border-radius: 16px; background: white; box-shadow: 0 12px 40px #102f2807; }
+.signin-role-picker { min-width: 0; margin: 0; padding: 0 0 26px; border: 0; }
+.signin-role-picker legend { margin-bottom: 12px; padding: 0; color: var(--muted); font-size: 12px; font-weight: 600; }
+.signin-role-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.signin-role { display: block; position: relative; cursor: pointer; }
+.signin-role > input { position: absolute; width: 1px; height: 1px; margin: 0; overflow: hidden; clip-path: inset(50%); }
+.signin-role-body { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 9px; min-height: 100px; padding: 16px 8px; border: 1px solid var(--line); border-radius: 10px; color: var(--muted); font-size: 13px; font-weight: 600; background: white; }
+.signin-role-icon { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; }
+.signin-role-icon svg { width: 27px; height: 27px; }
+.signin-role-body::after { content: ""; position: absolute; top: 8px; right: 8px; width: 16px; height: 16px; border: 1px solid var(--line); border-radius: 50%; font-size: 11px; line-height: 15px; text-align: center; }
+.signin-role:hover .signin-role-body { border-color: #9abaac; }
+.signin-role > input:checked + .signin-role-body { border-color: var(--emerald); color: var(--emerald); background: #eff8f2; }
+.signin-role > input:checked + .signin-role-body::after { content: "✓"; border-color: var(--emerald); background: var(--emerald); color: white; }
+.signin-role > input:focus-visible + .signin-role-body { outline: 3px solid #89b9a3; outline-offset: 3px; }
+.role-signin { display: none; padding-top: 24px; border-top: 1px solid var(--line); }
+.signin-card:has(#role-student:checked) #signin-student,
+.signin-card:has(#role-instructor:checked) #signin-instructor,
+.signin-card:has(#role-administrator:checked) #signin-administrator { display: block; }
+.signin-form-heading { margin-bottom: 23px; }
+.signin-form-heading h2 { margin: 0 0 7px; font-size: 21px; line-height: 1.3; letter-spacing: -.3px; }
+.signin-form-heading p { margin: 0; color: var(--muted); font-size: 13px; }
+.signin-form { display: grid; gap: 19px; }
+.signin-form .field { margin: 0; }
+.signin-form .field-label { color: var(--ink); font-size: 13px; }
+.signin-form .input { min-height: 49px; }
+.signin-submit { width: 100%; min-height: 48px; margin-top: 4px; }
+.signin-submit svg { width: 18px; height: 18px; }
+.signin-account-help { margin: 24px 0 0; padding-top: 21px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); text-align: center; }
+.signin-account-note { display: flex; justify-content: center; align-items: center; gap: 7px; margin: 20px 0 0; font-size: 11px; color: var(--muted); }
+.signin-account-note svg { width: 14px; height: 14px; }
+.signin-footer { padding: 14px 20px 22px; color: var(--muted); text-align: center; font-size: 11px; }
+.role-signin .notice { margin: 0 0 20px; font-size: 12px; }
+@media (max-width: 600px) {
+  .signin-header { padding: 22px 24px; }
+  .signin-main { width: calc(100% - 32px); padding-top: 20px; }
+  .signin-card { padding: 24px; }
+  .signin-heading h1 { font-size: 30px; }
+  .signin-heading .eyebrow { font-size: 9px; }
+  .signin-heading > p:last-child { font-size: 13px; }
+}
+@media (max-width: 420px) {
+  .signin-school-year { display: none; }
+  .signin-header { justify-content: center; padding: 24px 20px 12px; }
+  .signin-role-options { grid-template-columns: 1fr; gap: 8px; }
+  .signin-role-body { min-height: 52px; padding: 9px 14px; flex-direction: row; justify-content: flex-start; gap: 12px; }
+  .signin-role-icon { width: 26px; height: 26px; }
+  .signin-role-icon svg { width: 23px; height: 23px; }
+  .signin-role-body::after { top: 17px; right: 14px; }
+  .signin-heading { margin-bottom: 23px; }
+  .signin-role-picker { padding-bottom: 22px; }
+  .role-signin { padding-top: 21px; }
+  .signin-form-heading p { font-size: 12px; }
+  .signin-form .input { font-size: 16px; }
+}
 
 .report-grid { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr); gap: 24px; margin-bottom: 24px; }
 .report-chart { padding: 0; }
@@ -339,9 +358,6 @@ textarea.input { resize: vertical; min-height: 94px; }
   .toolbar-search { max-width: 260px; }
   .summary-strip { gap: 18px; }
   .summary-value { font-size: 23px; }
-  .login-story { padding: 40px; }
-  .login-roster-card { padding: 20px; }
-  .login-roster-card h2 { font-size: 19px; }
 }
 @media (max-width: 1000px) {
   .app-shell { grid-template-columns: 202px minmax(0, 1fr); }
@@ -359,19 +375,6 @@ textarea.input { resize: vertical; min-height: 94px; }
   .filters { flex-wrap: wrap; }
   .filters .field { flex-basis: 42%; }
   .filters > .btn { flex-basis: 100%; }
-  .login-layout { grid-template-columns: minmax(330px, .85fr) minmax(390px, 1.15fr); }
-  .login-story { padding: 35px; }
-  .login-story .eyebrow { margin-top: 80px; font-size: 10px; }
-  .login-story h1 { font-size: 36px; }
-  .login-story > p { font-size: 15px; }
-  .login-roster-card { padding: 18px; }
-  .login-roster-card .status-chip { font-size: 10px; padding: 5px 8px; }
-  .login-roster-card h2 { font-size: 18px; }
-  .login-form-panel { padding: 45px 35px; }
-  .login-form-panel .eyebrow { font-size: 9px; }
-  .login-form-panel > h2 { font-size: 31px; }
-  .login-form > h1 { font-size: 31px; }
-  .login-intro > p:not(.eyebrow) { font-size: 15px; }
 }
 /* 7. Mobile layout */
 @media (max-width: 760px) {
@@ -430,21 +433,6 @@ textarea.input { resize: vertical; min-height: 94px; }
   .section-header .status-chip { margin-left: 58px; }
   .section-meta { flex-wrap: wrap; }
   .section-meta > span:last-child { margin-left: 46px; }
-  .login-layout { display: block; }
-  .login-story { padding: 25px 25px 32px; }
-  .login-story .eyebrow { margin-top: 35px; }
-  .login-story h1 { font-size: 32px; margin: 12px 0 18px; }
-  .login-story > p { font-size: 14px; max-width: none; }
-  .login-roster-card, .login-story .story-footer { display: none; }
-  .login-caption { display: none; }
-  .login-intro > p:not(.eyebrow) { font-size: 14px; }
-  .login-form-panel { padding: 35px 25px 45px; align-items: stretch; }
-  .login-form-panel > .eyebrow { font-size: 9px; }
-  .login-form-panel > h2 { margin-top: 18px; font-size: 30px; }
-  .login-form-panel > p { font-size: 14px; margin-bottom: 30px; }
-  .login-form > h1 { margin-top: 18px; font-size: 30px; }
-  .login-form > .page-subtitle { font-size: 14px; margin-bottom: 30px; }
-  .login-form > .eyebrow { font-size: 9px; }
   .form-grid { grid-template-columns: 1fr; gap: 18px; }
   .modal-header { padding: 23px 22px 14px; }
   .modal-form { padding: 10px 22px 24px; }
