@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+  <!-- Rollcall UI prototype — Laboratory 6, Task 2C. Static sample screens; shared styles: assets/styles.css. -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Student Attendance Monitoring System: HTML/CSS user interface prototype for Laboratory 6, Task 2C.">
+    <title>Student records · Student Attendance</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <!-- Role-specific navigation mirrors the supplied use case diagram. -->
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="dashboard.html">
+          <span class="brand-mark">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12L10 17L20 7"></path>
+            </svg>
+          </span>
+          <span>rollcall</span>
+        </a>
+        <p class="sidebar-caption">Student attendance</p>
+        <div class="school-year">
+          <span class="year-dot"></span> School Year 2026–27</div>
+        <p class="sidebar-caption nav-caption">Workspace</p>
+        <nav>
+          <a class="nav-item active" href="students.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 21V19A4 4 0 0 0 12 15H6A4 4 0 0 0 2 19V21 M9 11A4 4 0 1 0 9 3A4 4 0 1 0 9 11 M17 4A4 4 0 0 1 17 11 M22 21V19A4 4 0 0 0 19 15.13"></path>
+            </svg>
+            <span>Students</span>
+          </a>
+          <a class="nav-item " href="sections.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3H8A4 4 0 0 1 12 7V22A4 4 0 0 0 8 18H3Z M21 3H16A4 4 0 0 0 12 7V22A4 4 0 0 1 16 18H21Z"></path>
+            </svg>
+            <span>Class sections</span>
+          </a>
+          <a class="nav-item " href="reports.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 3V21H22 M8 17V12 M13 17V7 M18 17V4"></path>
+            </svg>
+            <span>Reports</span>
+          </a>
+        </nav>
+        <div class="sidebar-help">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22A10 10 0 1 0 12 2A10 10 0 1 0 12 22 M9 8A3 3 0 0 1 15 8C15 11 12 11 12 14 M12 17V18"></path>
+          </svg>
+          <strong>A little help?</strong>
+          <p>Every student needs a status before a session can be saved.</p>
+        </div>
+        <div class="sidebar-footer">
+          <span class="user-avatar">AC</span>
+          <div class="user-meta">
+            <strong>Andrea Cruz</strong>
+            <span>Administrator</span>
+          </div>
+          <a class="logout-button" aria-label="Sign out" title="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+        </div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <strong>Administrator</strong>
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 5L15 12L8 19"></path>
+            </svg>
+            <span>Students</span>
+          </div>
+          <span class="topbar-date">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8H21 M7 2V6 M17 2V6 M5 4H19A2 2 0 0 1 21 6V20A2 2 0 0 1 19 22H5A2 2 0 0 1 3 20V6A2 2 0 0 1 5 4Z M7 12H9 M12 12H14 M7 17H9"></path>
+            </svg>
+            <span>School Year 2026–27</span>
+          </span>
+          <a class="icon-button mobile-logout" title="Sign out" aria-label="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+          <details class="prototype-navigation">
+            <summary>Preview screens</summary>
+            <nav>
+              <a href="index.html">Sign in</a>
+              <a href="dashboard.html">Instructor overview</a>
+              <a href="attendance.html">Take attendance</a>
+              <a href="attendance-warning.html">Incomplete attendance</a>
+              <a href="attendance-ready.html">Marked roster</a>
+              <a href="attendance-saved.html">Saved attendance</a>
+              <a href="records.html">Attendance records</a>
+              <a href="reports.html">Instructor reports</a>
+              <a href="students.html">Administrator · students</a>
+              <a href="sections.html">Administrator · sections</a>
+              <a href="admin-reports.html">Administrator · reports</a>
+              <a href="student.html">Student attendance</a>
+              <a href="design-notes.html">UI design notes</a>
+            </nav>
+          </details>
+        </header>
+        <!-- Screen content: layout, input controls, sample output, and linked UI states. -->
+        <main class="main-content" id="main-content">
+          <div class="notice notice-success state-notice" id="student-saved" role="status">Student record saved · preview state.</div>
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Student records</h1>
+              <p class="page-subtitle">Manage enrollment details and keep every section’s roster current.</p>
+            </div>
+            <a class="btn btn-primary" href="#add-student">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 4V20 M4 12H20"></path>
+              </svg> Add student</a>
+          </div>
+          <div class="stats-grid stats-three">
+            <article class="card stat-card">
+              <span class="stat-title">Students shown</span>
+              <span class="stat-icon">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M16 21V19A4 4 0 0 0 12 15H6A4 4 0 0 0 2 19V21 M9 11A4 4 0 1 0 9 3A4 4 0 1 0 9 11 M17 4A4 4 0 0 1 17 11 M22 21V19A4 4 0 0 0 19 15.13"></path>
+                </svg>
+              </span>
+              <strong class="stat-value">128</strong>
+              <span class="stat-detail">Matching your current filters</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-title">Class sections</span>
+              <span class="stat-icon">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 3H8A4 4 0 0 1 12 7V22A4 4 0 0 0 8 18H3Z M21 3H16A4 4 0 0 0 12 7V22A4 4 0 0 1 16 18H21Z"></path>
+                </svg>
+              </span>
+              <strong class="stat-value">4</strong>
+              <span class="stat-detail">School Year 2026–27</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-title">Active enrollments</span>
+              <span class="stat-icon">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10"></path>
+                </svg>
+              </span>
+              <strong class="stat-value">128</strong>
+              <span class="stat-detail">Within the current student list</span>
+            </article>
+          </div>
+          <section class="card">
+            <header class="card-header">
+              <div>
+                <h2 class="card-title">All students</h2>
+                <p class="small muted">128 student records</p>
+              </div>
+              <form class="inline-form" method="get" action="students.html">
+                <label class="toolbar-search">
+                  <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10.5 18A7.5 7.5 0 1 0 10.5 3A7.5 7.5 0 1 0 10.5 18 M16 16L22 22"></path>
+                  </svg>
+                  <input class="input" type="search" name="q" placeholder="Search name or student ID" aria-label="Search students" value="">
+                </label>
+                <select class="select" name="section_id" aria-label="Filter by section">
+                  <option value="">All sections</option>
+                  <option value="1">BSIT 2A</option>
+                  <option value="2">BSIT 2B</option>
+                  <option value="3">BSIT 2C</option>
+                  <option value="4">BSIT 3A</option>
+                </select>
+                <button class="btn btn-secondary btn-small">Search</button>
+              </form>
+            </header>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Student</th>
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Section</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">AR</span>
+                        <span>
+                          <strong>Alex Reyes</strong>
+                          <span class="cell-subtitle">alex@rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0018</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">BC</span>
+                        <span>
+                          <strong>Bea Cruz</strong>
+                          <span class="cell-subtitle">bea.cruz.1@student.rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0021</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">CM</span>
+                        <span>
+                          <strong>Carlo Mendoza</strong>
+                          <span class="cell-subtitle">carlo.mendoza.1@student.rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0024</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">DR</span>
+                        <span>
+                          <strong>Dani Ramos</strong>
+                          <span class="cell-subtitle">dani.ramos.1@student.rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0028</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">ET</span>
+                        <span>
+                          <strong>Elise Torres</strong>
+                          <span class="cell-subtitle">elise.torres.1@student.rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0030</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">FG</span>
+                        <span>
+                          <strong>Felix Garcia</strong>
+                          <span class="cell-subtitle">felix.garcia.1@student.rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0034</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">GN</span>
+                        <span>
+                          <strong>Gia Navarro</strong>
+                          <span class="cell-subtitle">gia.navarro.1@student.rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0039</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="student-cell">
+                        <span class="student-avatar">HL</span>
+                        <span>
+                          <strong>Hugo Lim</strong>
+                          <span class="cell-subtitle">hugo.lim.1@student.rollcall.local</span>
+                        </span>
+                      </div>
+                    </td>
+                    <td class="student-number">2024-0042</td>
+                    <td>BSIT 2A</td>
+                    <td>
+                      <span class="status-chip status-present">Active</span>
+                    </td>
+                    <td>
+                      <a class="text-action" href="#edit-student">Edit</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span class="small muted">Showing 1–8 of 128 records · sample view</span>
+            </div>
+          </section>
+          <section class="static-modal" id="add-student" aria-labelledby="student-dialog-title">
+            <div class="modal-panel">
+              <div class="modal-header">
+                <div>
+                  <h2 id="student-dialog-title">Add student</h2>
+                  <p class="muted small">Create a student record and assign a class section.</p>
+                </div>
+                <a class="icon-button" aria-label="Close dialog" href="students.html">
+                  <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 6L18 18 M18 6L6 18"></path>
+                  </svg>
+                </a>
+              </div>
+              <form class="modal-form" method="get" action="students.html#student-saved" id="student-form">
+                <input type="hidden" name="id" value="">
+                <label class="field">
+                  <span class="field-label">Student ID</span>
+                  <input class="input" name="student_number" required maxlength="40" placeholder="2024-0086">
+                </label>
+                <label class="field">
+                  <span class="field-label">Full name</span>
+                  <input class="input" name="name" required maxlength="100" placeholder="Isabel Santos">
+                </label>
+                <label class="field">
+                  <span class="field-label">School email</span>
+                  <input class="input" name="email" type="email" required maxlength="120" placeholder="isabel@school.edu">
+                </label>
+                <label class="field">
+                  <span class="field-label">Class section</span>
+                  <select class="select" name="section_id" required>
+                    <option value="1">BSIT 2A · Database Management</option>
+                    <option value="2">BSIT 2B · Web Development</option>
+                    <option value="3">BSIT 2C · Database Management</option>
+                    <option value="4">BSIT 3A · Information Systems</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span class="field-label">Enrollment status</span>
+                  <select class="select" name="active">
+                    <option value="1">Active</option>
+                    <option value="0">Inactive</option>
+                  </select>
+                </label>
+                <div class="modal-actions">
+                  <a class="btn btn-secondary" href="students.html">Cancel</a>
+                  <button class="btn btn-primary" type="submit">Add student</button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+    <section class="static-modal" id="edit-student" aria-labelledby="edit-student-dialog-title">
+      <div class="modal-panel">
+        <div class="modal-header">
+          <div>
+            <h2 id="edit-student-dialog-title">Edit student</h2>
+            <p class="muted small">Create a student record and assign a class section.</p>
+          </div>
+          <a class="icon-button" aria-label="Close dialog" href="students.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M6 6L18 18 M18 6L6 18"></path>
+            </svg>
+          </a>
+        </div>
+        <form class="modal-form" method="get" action="students.html#student-saved" id="edit-student-form">
+          <input type="hidden" name="id" value="1">
+          <label class="field">
+            <span class="field-label">Student ID</span>
+            <input class="input" name="student_number" required maxlength="40" placeholder="2024-0086" value="2024-0018">
+          </label>
+          <label class="field">
+            <span class="field-label">Full name</span>
+            <input class="input" name="name" required maxlength="100" placeholder="Isabel Santos" value="Alex Reyes">
+          </label>
+          <label class="field">
+            <span class="field-label">School email</span>
+            <input class="input" name="email" type="email" required maxlength="120" placeholder="isabel@school.edu" value="alex@rollcall.local">
+          </label>
+          <label class="field">
+            <span class="field-label">Class section</span>
+            <select class="select" name="section_id" required>
+              <option value="1" selected>BSIT 2A · Database Management</option>
+              <option value="2">BSIT 2B · Web Development</option>
+              <option value="3">BSIT 2C · Database Management</option>
+              <option value="4">BSIT 3A · Information Systems</option>
+            </select>
+          </label>
+          <label class="field">
+            <span class="field-label">Enrollment status</span>
+            <select class="select" name="active">
+              <option value="1" selected>Active</option>
+              <option value="0">Inactive</option>
+            </select>
+          </label>
+          <div class="modal-actions">
+            <a class="btn btn-secondary" href="students.html">Cancel</a>
+            <button class="btn btn-primary" type="submit">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

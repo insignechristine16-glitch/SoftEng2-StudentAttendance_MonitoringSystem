@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+  <!-- Rollcall UI prototype — Laboratory 6, Task 2C. Static sample screens; shared styles: assets/styles.css. -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Student Attendance Monitoring System: HTML/CSS user interface prototype for Laboratory 6, Task 2C.">
+    <title>Take attendance · Student Attendance</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <!-- Role-specific navigation mirrors the supplied use case diagram. -->
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="dashboard.html">
+          <span class="brand-mark">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12L10 17L20 7"></path>
+            </svg>
+          </span>
+          <span>rollcall</span>
+        </a>
+        <p class="sidebar-caption">Student attendance</p>
+        <div class="school-year">
+          <span class="year-dot"></span> School Year 2026–27</div>
+        <p class="sidebar-caption nav-caption">Workspace</p>
+        <nav>
+          <a class="nav-item " href="dashboard.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3H10V10H3Z M14 3H21V10H14Z M3 14H10V21H3Z M14 14H21V21H14Z"></path>
+            </svg>
+            <span>Overview</span>
+          </a>
+          <a class="nav-item active" href="attendance.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10"></path>
+            </svg>
+            <span>Take attendance</span>
+          </a>
+          <a class="nav-item " href="records.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 3H17L21 7V21H7Z M17 3V8H21 M3 7V23H17 M11 12H17 M11 16H17"></path>
+            </svg>
+            <span>Attendance records</span>
+          </a>
+          <a class="nav-item " href="reports.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 3V21H22 M8 17V12 M13 17V7 M18 17V4"></path>
+            </svg>
+            <span>Reports</span>
+          </a>
+        </nav>
+        <div class="sidebar-help">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22A10 10 0 1 0 12 2A10 10 0 1 0 12 22 M9 8A3 3 0 0 1 15 8C15 11 12 11 12 14 M12 17V18"></path>
+          </svg>
+          <strong>A little help?</strong>
+          <p>Every student needs a status before a session can be saved.</p>
+        </div>
+        <div class="sidebar-footer">
+          <span class="user-avatar">MS</span>
+          <div class="user-meta">
+            <strong>Maria Santos</strong>
+            <span>Instructor</span>
+          </div>
+          <a class="logout-button" aria-label="Sign out" title="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+        </div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <strong>Instructor</strong>
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 5L15 12L8 19"></path>
+            </svg>
+            <span>Take attendance</span>
+          </div>
+          <span class="topbar-date">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8H21 M7 2V6 M17 2V6 M5 4H19A2 2 0 0 1 21 6V20A2 2 0 0 1 19 22H5A2 2 0 0 1 3 20V6A2 2 0 0 1 5 4Z M7 12H9 M12 12H14 M7 17H9"></path>
+            </svg>
+            <span>School Year 2026–27</span>
+          </span>
+          <a class="icon-button mobile-logout" title="Sign out" aria-label="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+          <details class="prototype-navigation">
+            <summary>Preview screens</summary>
+            <nav>
+              <a href="index.html">Sign in</a>
+              <a href="dashboard.html">Instructor overview</a>
+              <a href="attendance.html">Take attendance</a>
+              <a href="attendance-warning.html">Incomplete attendance</a>
+              <a href="attendance-ready.html">Marked roster</a>
+              <a href="attendance-saved.html">Saved attendance</a>
+              <a href="records.html">Attendance records</a>
+              <a href="reports.html">Instructor reports</a>
+              <a href="students.html">Administrator · students</a>
+              <a href="sections.html">Administrator · sections</a>
+              <a href="admin-reports.html">Administrator · reports</a>
+              <a href="student.html">Student attendance</a>
+              <a href="design-notes.html">UI design notes</a>
+            </nav>
+          </details>
+        </header>
+        <!-- Screen content: layout, input controls, sample output, and linked UI states. -->
+        <main class="main-content" id="main-content">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Take attendance</h1>
+              <p class="page-subtitle">Choose a session, then give every student an attendance status.</p>
+            </div>
+            <span class="status-chip status-present">Ready to save</span>
+          </div>
+          <form class="card filters" method="get" action="attendance.html">
+            <label class="field">
+              <span class="field-label">Class section</span>
+              <select class="select" name="section_id" required>
+                <option value="1" selected>BSIT 2A · Database Management</option>
+                <option value="2">BSIT 2B · Web Development</option>
+                <option value="3">BSIT 2C · Database Management</option>
+                <option value="4">BSIT 3A · Information Systems</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field-label">Session date</span>
+              <input class="input" type="date" name="date" value="2026-10-24" required>
+            </label>
+            <button class="btn btn-primary" type="submit">Load student list</button>
+          </form>
+          <form method="get" action="attendance-saved.html">
+            <input type="hidden" name="section_id" value="1">
+            <input type="hidden" name="date" value="2026-10-24">
+            <section class="card roster">
+              <div class="toolbar">
+                <div>
+                  <h2 class="card-title">Student roster</h2>
+                  <p class="small muted">32 students · BSIT 2A</p>
+                </div>
+                <label class="toolbar-search">
+                  <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M10.5 18A7.5 7.5 0 1 0 10.5 3A7.5 7.5 0 1 0 10.5 18 M16 16L22 22"></path>
+                  </svg>
+                  <input class="input" type="search" placeholder="Search name or student ID" aria-label="Student search preview">
+                </label>
+                <div class="toolbar-actions">
+                  <a class="btn btn-secondary btn-small" href="attendance-ready.html">View marked roster</a>
+                  <a class="btn btn-secondary btn-small" href="attendance-warning.html">Review unmarked</a>
+                </div>
+              </div>
+              <div class="summary-strip" aria-live="polite">
+                <span class="summary-item">
+                  <strong class="summary-value status-text-present">27</strong> Present</span>
+                <span class="summary-item">
+                  <strong class="summary-value status-text-late">2</strong> Late</span>
+                <span class="summary-item">
+                  <strong class="summary-value status-text-absent">2</strong> Absent</span>
+                <span class="summary-item">
+                  <strong class="summary-value status-text-excused">1</strong> Excused</span>
+                <strong class="marked-total">32 / 32 marked</strong>
+              </div>
+              <div class="table-wrap">
+                <table class="data-table roster-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Student</th>
+                      <th scope="col">Student ID</th>
+                      <th scope="col">Attendance status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">AR</span>
+                          <span>Alex Reyes</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0018</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Alex Reyes">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_1" value="present" required="required" checked>
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_1" value="late" required="required">
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_1" value="absent" required="required">
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_1" value="excused" required="required">
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">BC</span>
+                          <span>Bea Cruz</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0021</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Bea Cruz">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_2" value="present" required="required" checked>
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_2" value="late" required="required">
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_2" value="absent" required="required">
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_2" value="excused" required="required">
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">CM</span>
+                          <span>Carlo Mendoza</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0024</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Carlo Mendoza">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_3" value="present" required="required">
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_3" value="late" required="required" checked>
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_3" value="absent" required="required">
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_3" value="excused" required="required">
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">DR</span>
+                          <span>Dani Ramos</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0028</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Dani Ramos">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_4" value="present" required="required">
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_4" value="late" required="required">
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_4" value="absent" required="required" checked>
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_4" value="excused" required="required">
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">ET</span>
+                          <span>Elise Torres</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0030</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Elise Torres">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_5" value="present" required="required">
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_5" value="late" required="required">
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_5" value="absent" required="required">
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_5" value="excused" required="required" checked>
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">FG</span>
+                          <span>Felix Garcia</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0034</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Felix Garcia">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_6" value="present" required="required" checked>
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_6" value="late" required="required">
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_6" value="absent" required="required">
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_6" value="excused" required="required">
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">GN</span>
+                          <span>Gia Navarro</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0039</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Gia Navarro">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_7" value="present" required="required">
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_7" value="late" required="required" checked>
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_7" value="absent" required="required">
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_7" value="excused" required="required">
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr class="">
+                      <td>
+                        <div class="student-cell">
+                          <span class="student-avatar">HL</span>
+                          <span>Hugo Lim</span>
+                        </div>
+                      </td>
+                      <td class="student-number">2024-0042</td>
+                      <td>
+                        <div class="status-options" role="group" aria-label="Attendance for Hugo Lim">
+                          <label class="status-choice" data-status="present">
+                            <input type="radio" name="status_8" value="present" required="required">
+                            <span class="status-option">Present</span>
+                          </label>
+                          <label class="status-choice" data-status="late">
+                            <input type="radio" name="status_8" value="late" required="required">
+                            <span class="status-option">Late</span>
+                          </label>
+                          <label class="status-choice" data-status="absent">
+                            <input type="radio" name="status_8" value="absent" required="required" checked>
+                            <span class="status-option">Absent</span>
+                          </label>
+                          <label class="status-choice" data-status="excused">
+                            <input type="radio" name="status_8" value="excused" required="required">
+                            <span class="status-option">Excused</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="empty-state" hidden>No students match your search.</div>
+              <div class="table-footer">
+                <span class="small muted">Showing 1–8 of 32 students</span>
+                <div class="pagination">
+                  <a class="page-button" aria-label="Previous page" href="attendance.html">‹</a>
+                  <span class="page-button active">1</span>
+                  <a class="page-button" aria-label="Next page" href="attendance-ready.html">›</a>
+                </div>
+              </div>
+            </section>
+            <div class="form-footer">
+              <p class="small muted">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M6 10V7A6 6 0 0 1 18 7V10 M4 10H20V22H4Z M12 15V18"></path>
+                </svg> Saved records can be updated from Attendance records.</p>
+              <div class="header-actions">
+                <a class="btn btn-secondary" href="dashboard.html">Cancel</a>
+                <button type="submit" class="btn btn-primary">Save attendance</button>
+              </div>
+            </div>
+          </form>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

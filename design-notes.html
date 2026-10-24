@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UI Design Notes · Laboratory 6</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <main class="design-notes" id="main-content">
+      <header class="page-header">
+        <div>
+          <p class="eyebrow">Laboratory 6 · Task 2C</p>
+          <h1>UI Design Notes</h1>
+          <p class="page-subtitle">Student Attendance Monitoring System</p>
+        </div>
+        <a class="btn btn-secondary" href="index.html">Back to prototype</a>
+      </header>
+      <section class="card notes-block" aria-labelledby="scope-title">
+        <h2 id="scope-title">Context and scope</h2>
+        <p>The interface supports three roles: an instructor who records attendance, an administrator who manages student and section information, and a student who views personal attendance. The main instructor flow is to select a class and date, review the roster, assign statuses, and save the session.</p>
+        <p>This submission covers the <strong>UI-design portion of Task 2C</strong>: screen layouts, input forms, navigation, and output displays. It is an HTML-and-CSS prototype with sample content. It is not a completed attendance system.</p>
+      </section>
+      <section class="card notes-block" aria-labelledby="mapping-title">
+        <h2 id="mapping-title">Task 2C coverage</h2>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col">UI requirement</th>
+                <th scope="col">Pages and evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <strong>Screen layouts</strong>
+                </td>
+                <td>
+                  <a href="index.html">index.html</a> provides sign-in; <a href="dashboard.html">dashboard.html</a> provides the instructor overview. <a href="students.html">students.html</a>, <a href="sections.html">sections.html</a>, and <a href="student.html">student.html</a> show the administrator and student layouts.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Input forms</strong>
+                </td>
+                <td>
+                  <a href="attendance.html">attendance.html</a> includes class, date, and per-student status inputs. <a href="edit-record.html">edit-record.html</a> shows correction inputs. The student and section pages include add/edit form overlays. Sign-in fields appear on <a href="index.html">index.html</a>.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Navigation</strong>
+                </td>
+                <td>Role links on the sign-in page and role-specific sidebars connect the screens. <a href="attendance-warning.html">attendance-warning.html</a>, <a href="attendance-ready.html">attendance-ready.html</a>, and <a href="attendance-saved.html">attendance-saved.html</a> demonstrate the sequence through an incomplete roster, a completed roster, and a saved record.</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Output displays</strong>
+                </td>
+                <td>
+                  <a href="records.html">records.html</a> shows saved sessions; <a href="reports.html">reports.html</a> and <a href="admin-reports.html">admin-reports.html</a> show report layouts. <a href="student.html">student.html</a> shows personal history. <a href="attendance-saved.html">attendance-saved.html</a> and <a href="record-updated.html">record-updated.html</a> show confirmation states.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <div class="notes-grid">
+        <section class="card notes-block" aria-labelledby="choices-title">
+          <h2 id="choices-title">Design decisions</h2>
+          <ul>
+            <li>
+              <strong>Role-specific navigation:</strong> each role sees links relevant to its responsibilities. This keeps attendance entry separate from student and section management.</li>
+            <li>
+              <strong>A roster table:</strong> names, student IDs, and status choices remain aligned so an instructor can work through a class list.</li>
+            <li>
+              <strong>Words and color:</strong> Present, Late, Absent, and Excused have text labels as well as distinct colors. An unmarked student remains visibly different from an absent student.</li>
+            <li>
+              <strong>Session context:</strong> the selected class and date appear above the roster to reduce the chance of entering marks for the wrong session.</li>
+            <li>
+              <strong>Feedback states:</strong> dedicated warning and confirmation screens show how the interface should communicate incomplete and saved attendance.</li>
+            <li>
+              <strong>Consistency and access:</strong> one stylesheet defines shared controls, spacing, and status styles. Semantic labels, keyboard focus, native form controls, and responsive layouts support different devices and input methods.</li>
+          </ul>
+        </section>
+        <section class="card notes-block" aria-labelledby="limits-title">
+          <h2 id="limits-title">Prototype behavior and limitations</h2>
+          <p>Page links, native radio selections, required-field checks, and CSS <code>:target</code> form overlays work in the browser. Radio choices change their visual selection locally.</p>
+          <p>There is <strong>no authentication, database, persistence, report computation, or data filtering</strong>. Sign-in and save controls navigate to illustrative pages. Student records, summary totals, report values, and warning messages are fixed samples; changing a radio choice does not recalculate them.</p>
+          <p>The state pages demonstrate the intended feedback flow. They do not implement the complete attendance-validation rules of a working system.</p>
+        </section>
+      </div>
+      <section class="card notes-block" aria-labelledby="files-title">
+        <h2 id="files-title">Code organization</h2>
+        <p>Each screen has its own HTML file. Shared presentation is kept in one CSS file.</p>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col">Files</th>
+                <th scope="col">Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>index.html</code>, <code>login-error.html</code>
+                </td>
+                <td>Sign-in layout and error example.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>dashboard.html</code>, <code>attendance.html</code>, <code>attendance-warning.html</code>, <code>attendance-ready.html</code>, <code>attendance-saved.html</code>
+                </td>
+                <td>Instructor overview and attendance state sequence.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>records.html</code>, <code>edit-record.html</code>, <code>record-updated.html</code>
+                </td>
+                <td>Saved records and correction states.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>students.html</code>, <code>sections.html</code>, <code>admin-reports.html</code>
+                </td>
+                <td>Administrator screens.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>reports.html</code>, <code>student.html</code>
+                </td>
+                <td>Instructor report and student attendance views.</td>
+              </tr>
+              <tr>
+                <td>
+                  <code>assets/styles.css</code>
+                </td>
+                <td>Shared layout, typography, forms, status choices, and responsive styles.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <p class="notes-footer muted">The supplied use-case and activity diagrams were used as reference artifacts. Diagram preparation remains a separate Task 2 requirement; this UI package does not claim newly created diagram deliverables or completion of other laboratory tasks.</p>
+    </main>
+  </body>
+</html>

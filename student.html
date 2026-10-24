@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <!-- Rollcall UI prototype — Laboratory 6, Task 2C. Static sample screens; shared styles: assets/styles.css. -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Student Attendance Monitoring System: HTML/CSS user interface prototype for Laboratory 6, Task 2C.">
+    <title>My attendance · Student Attendance</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <!-- Role-specific navigation mirrors the supplied use case diagram. -->
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="dashboard.html">
+          <span class="brand-mark">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12L10 17L20 7"></path>
+            </svg>
+          </span>
+          <span>rollcall</span>
+        </a>
+        <p class="sidebar-caption">Student attendance</p>
+        <div class="school-year">
+          <span class="year-dot"></span> School Year 2026–27</div>
+        <p class="sidebar-caption nav-caption">Workspace</p>
+        <nav>
+          <a class="nav-item active" href="student.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10"></path>
+            </svg>
+            <span>My attendance</span>
+          </a>
+        </nav>
+        <div class="sidebar-help">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22A10 10 0 1 0 12 2A10 10 0 1 0 12 22 M9 8A3 3 0 0 1 15 8C15 11 12 11 12 14 M12 17V18"></path>
+          </svg>
+          <strong>A little help?</strong>
+          <p>Every student needs a status before a session can be saved.</p>
+        </div>
+        <div class="sidebar-footer">
+          <span class="user-avatar">AR</span>
+          <div class="user-meta">
+            <strong>Alex Reyes</strong>
+            <span>Student</span>
+          </div>
+          <a class="logout-button" aria-label="Sign out" title="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+        </div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <strong>Student</strong>
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 5L15 12L8 19"></path>
+            </svg>
+            <span>My attendance</span>
+          </div>
+          <span class="topbar-date">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8H21 M7 2V6 M17 2V6 M5 4H19A2 2 0 0 1 21 6V20A2 2 0 0 1 19 22H5A2 2 0 0 1 3 20V6A2 2 0 0 1 5 4Z M7 12H9 M12 12H14 M7 17H9"></path>
+            </svg>
+            <span>School Year 2026–27</span>
+          </span>
+          <a class="icon-button mobile-logout" title="Sign out" aria-label="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+          <details class="prototype-navigation">
+            <summary>Preview screens</summary>
+            <nav>
+              <a href="index.html">Sign in</a>
+              <a href="dashboard.html">Instructor overview</a>
+              <a href="attendance.html">Take attendance</a>
+              <a href="attendance-warning.html">Incomplete attendance</a>
+              <a href="attendance-ready.html">Marked roster</a>
+              <a href="attendance-saved.html">Saved attendance</a>
+              <a href="records.html">Attendance records</a>
+              <a href="reports.html">Instructor reports</a>
+              <a href="students.html">Administrator · students</a>
+              <a href="sections.html">Administrator · sections</a>
+              <a href="admin-reports.html">Administrator · reports</a>
+              <a href="student.html">Student attendance</a>
+              <a href="design-notes.html">UI design notes</a>
+            </nav>
+          </details>
+        </header>
+        <!-- Screen content: layout, input controls, sample output, and linked UI states. -->
+        <main class="main-content" id="main-content">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Hello, Alex</p>
+              <h1 class="page-title">Your attendance, at a glance.</h1>
+              <p class="page-subtitle">Stay on top of your attendance across all your subjects.</p>
+            </div>
+            <span class="status-chip status-neutral">BSIT 2A</span>
+          </div>
+          <div class="stats-grid">
+            <article class="card stat-card">
+              <span class="stat-title">Attendance rate</span>
+              <span class="stat-icon">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 17L9 11L13 15L21 6 M15 6H21V12"></path>
+                </svg>
+              </span>
+              <strong class="stat-value">87.5%</strong>
+              <span class="stat-detail">Present + Late · Excused excluded</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-title">Present</span>
+              <span class="stat-icon">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10"></path>
+                </svg>
+              </span>
+              <strong class="stat-value">6</strong>
+              <span class="stat-detail">Sessions attended on time</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-title">Late</span>
+              <span class="stat-icon">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22A10 10 0 1 0 12 2A10 10 0 1 0 12 22 M12 6V12L16 14"></path>
+                </svg>
+              </span>
+              <strong class="stat-value">1</strong>
+              <span class="stat-detail">Included in your attendance rate</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-title">Absent</span>
+              <span class="stat-icon">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 8H21 M7 2V6 M17 2V6 M5 4H19A2 2 0 0 1 21 6V20A2 2 0 0 1 19 22H5A2 2 0 0 1 3 20V6A2 2 0 0 1 5 4Z M7 12H9 M12 12H14 M7 17H9"></path>
+                </svg>
+              </span>
+              <strong class="stat-value">1</strong>
+              <span class="stat-detail">Sessions missed</span>
+            </article>
+          </div>
+          <form class="card filters" method="get" action="student.html">
+            <label class="field">
+              <span class="field-label">Subject</span>
+              <select class="select" name="subject">
+                <option value="">All subjects</option>
+                <option value="Database Management">Database Management</option>
+              </select>
+            </label>
+            <button class="btn btn-secondary">Apply filter</button>
+            <span class="small muted">School Year 2026–27</span>
+          </form>
+          <div class="student-grid">
+            <section class="card">
+              <header class="card-header">
+                <div>
+                  <h2 class="card-title">Your recent sessions</h2>
+                  <p class="small muted">Only your attendance records appear here.</p>
+                </div>
+              </header>
+              <div class="table-wrap">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Subject</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-22</td>
+                      <td>
+                        <span class="status-chip status-present">Present</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-21</td>
+                      <td>
+                        <span class="status-chip status-late">Late</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-19</td>
+                      <td>
+                        <span class="status-chip status-present">Present</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-15</td>
+                      <td>
+                        <span class="status-chip status-absent">Absent</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-12</td>
+                      <td>
+                        <span class="status-chip status-present">Present</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-08</td>
+                      <td>
+                        <span class="status-chip status-present">Present</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-05</td>
+                      <td>
+                        <span class="status-chip status-present">Present</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Database Management</strong>
+                        <span class="cell-subtitle">BSIT 2A</span>
+                      </td>
+                      <td>2026-10-01</td>
+                      <td>
+                        <span class="status-chip status-present">Present</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="table-footer">
+                <span class="small muted">Showing 1–8 of 8 records · sample view</span>
+              </div>
+            </section>
+            <div class="student-aside">
+              <section class="card reminder">
+                <span class="stat-icon">
+                  <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 17L9 11L13 15L21 6 M15 6H21V12"></path>
+                  </svg>
+                </span>
+                <h2 class="card-title">Keep showing up.</h2>
+                <p class="muted">Every session counts. You have 8 recorded sessions, including 0 excused.</p>
+              </section>
+              <section class="card reminder">
+                <h2 class="card-title">See something that looks wrong?</h2>
+                <p class="muted">Contact your instructor to request a correction to a saved record.</p>
+              </section>
+            </div>
+          </div>
+          <p class="small muted rate-note">Rate = (Present + Late) ÷ (Present + Late + Absent). Excused sessions are excluded.</p>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

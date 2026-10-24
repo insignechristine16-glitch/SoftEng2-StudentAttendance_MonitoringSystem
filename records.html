@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <!-- Rollcall UI prototype — Laboratory 6, Task 2C. Static sample screens; shared styles: assets/styles.css. -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Student Attendance Monitoring System: HTML/CSS user interface prototype for Laboratory 6, Task 2C.">
+    <title>Attendance records · Student Attendance</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <div class="app-shell">
+      <!-- Role-specific navigation mirrors the supplied use case diagram. -->
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="dashboard.html">
+          <span class="brand-mark">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12L10 17L20 7"></path>
+            </svg>
+          </span>
+          <span>rollcall</span>
+        </a>
+        <p class="sidebar-caption">Student attendance</p>
+        <div class="school-year">
+          <span class="year-dot"></span> School Year 2026–27</div>
+        <p class="sidebar-caption nav-caption">Workspace</p>
+        <nav>
+          <a class="nav-item " href="dashboard.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3H10V10H3Z M14 3H21V10H14Z M3 14H10V21H3Z M14 14H21V21H14Z"></path>
+            </svg>
+            <span>Overview</span>
+          </a>
+          <a class="nav-item " href="attendance.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 4H5A2 2 0 0 0 3 6V20A2 2 0 0 0 5 22H19A2 2 0 0 0 21 20V6A2 2 0 0 0 19 4H16 M8 2H16V6H8Z M7 14L10 17L17 10"></path>
+            </svg>
+            <span>Take attendance</span>
+          </a>
+          <a class="nav-item active" href="records.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M7 3H17L21 7V21H7Z M17 3V8H21 M3 7V23H17 M11 12H17 M11 16H17"></path>
+            </svg>
+            <span>Attendance records</span>
+          </a>
+          <a class="nav-item " href="reports.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 3V21H22 M8 17V12 M13 17V7 M18 17V4"></path>
+            </svg>
+            <span>Reports</span>
+          </a>
+        </nav>
+        <div class="sidebar-help">
+          <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22A10 10 0 1 0 12 2A10 10 0 1 0 12 22 M9 8A3 3 0 0 1 15 8C15 11 12 11 12 14 M12 17V18"></path>
+          </svg>
+          <strong>A little help?</strong>
+          <p>Every student needs a status before a session can be saved.</p>
+        </div>
+        <div class="sidebar-footer">
+          <span class="user-avatar">MS</span>
+          <div class="user-meta">
+            <strong>Maria Santos</strong>
+            <span>Instructor</span>
+          </div>
+          <a class="logout-button" aria-label="Sign out" title="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+        </div>
+      </aside>
+      <div class="workspace">
+        <header class="topbar">
+          <div class="breadcrumbs">
+            <strong>Instructor</strong>
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M8 5L15 12L8 19"></path>
+            </svg>
+            <span>Attendance records</span>
+          </div>
+          <span class="topbar-date">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 8H21 M7 2V6 M17 2V6 M5 4H19A2 2 0 0 1 21 6V20A2 2 0 0 1 19 22H5A2 2 0 0 1 3 20V6A2 2 0 0 1 5 4Z M7 12H9 M12 12H14 M7 17H9"></path>
+            </svg>
+            <span>School Year 2026–27</span>
+          </span>
+          <a class="icon-button mobile-logout" title="Sign out" aria-label="Sign out" href="index.html">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 3H4V21H9 M9 12H21 M16 7L21 12L16 17"></path>
+            </svg>
+          </a>
+          <details class="prototype-navigation">
+            <summary>Preview screens</summary>
+            <nav>
+              <a href="index.html">Sign in</a>
+              <a href="dashboard.html">Instructor overview</a>
+              <a href="attendance.html">Take attendance</a>
+              <a href="attendance-warning.html">Incomplete attendance</a>
+              <a href="attendance-ready.html">Marked roster</a>
+              <a href="attendance-saved.html">Saved attendance</a>
+              <a href="records.html">Attendance records</a>
+              <a href="reports.html">Instructor reports</a>
+              <a href="students.html">Administrator · students</a>
+              <a href="sections.html">Administrator · sections</a>
+              <a href="admin-reports.html">Administrator · reports</a>
+              <a href="student.html">Student attendance</a>
+              <a href="design-notes.html">UI design notes</a>
+            </nav>
+          </details>
+        </header>
+        <!-- Screen content: layout, input controls, sample output, and linked UI states. -->
+        <main class="main-content" id="main-content">
+          <div class="page-header">
+            <div>
+              <h1 class="page-title">Attendance records</h1>
+              <p class="page-subtitle">Review saved sessions and keep your class records up to date.</p>
+            </div>
+            <a class="btn btn-primary" href="attendance.html">
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 4V20 M4 12H20"></path>
+              </svg> Take attendance</a>
+          </div>
+          <form class="card filters" method="get" action="records.html">
+            <label class="field">
+              <span class="field-label">Class section</span>
+              <select class="select" name="section_id">
+                <option value="">All assigned sections</option>
+                <option value="1">BSIT 2A · Database Management</option>
+                <option value="2">BSIT 2B · Web Development</option>
+                <option value="3">BSIT 2C · Database Management</option>
+                <option value="4">BSIT 3A · Information Systems</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="field-label">From</span>
+              <input type="date" class="input" name="start_date" value="2026-10-01">
+            </label>
+            <label class="field">
+              <span class="field-label">To</span>
+              <input type="date" class="input" name="end_date" value="2026-10-24">
+            </label>
+            <button class="btn btn-primary">Apply filters</button>
+          </form>
+          <section class="card">
+            <header class="card-header">
+              <div>
+                <h2 class="card-title">Saved sessions</h2>
+                <p class="small muted">32 attendance records in this period</p>
+              </div>
+              <a class="btn btn-secondary btn-small" href="reports.html">
+                <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 3V21H22 M8 17V12 M13 17V7 M18 17V4"></path>
+                </svg> Open reports</a>
+            </header>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Class / Section</th>
+                    <th scope="col">Session date</th>
+                    <th scope="col">Present</th>
+                    <th scope="col">Late</th>
+                    <th scope="col">Absent</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>Database Management</strong>
+                      <span class="cell-subtitle">BSIT 2A</span>
+                    </td>
+                    <td>2026-10-22</td>
+                    <td>27</td>
+                    <td>2</td>
+                    <td class="status-text-absent">2</td>
+                    <td class="status-text-present">
+                      <strong>93.5%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Web Development</strong>
+                      <span class="cell-subtitle">BSIT 2B</span>
+                    </td>
+                    <td>2026-10-22</td>
+                    <td>27</td>
+                    <td>2</td>
+                    <td class="status-text-absent">2</td>
+                    <td class="status-text-present">
+                      <strong>93.5%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Database Management</strong>
+                      <span class="cell-subtitle">BSIT 2C</span>
+                    </td>
+                    <td>2026-10-22</td>
+                    <td>27</td>
+                    <td>2</td>
+                    <td class="status-text-absent">2</td>
+                    <td class="status-text-present">
+                      <strong>93.5%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Information Systems</strong>
+                      <span class="cell-subtitle">BSIT 3A</span>
+                    </td>
+                    <td>2026-10-22</td>
+                    <td>27</td>
+                    <td>2</td>
+                    <td class="status-text-absent">2</td>
+                    <td class="status-text-present">
+                      <strong>93.5%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Database Management</strong>
+                      <span class="cell-subtitle">BSIT 2A</span>
+                    </td>
+                    <td>2026-10-21</td>
+                    <td>27</td>
+                    <td>3</td>
+                    <td class="status-text-absent">1</td>
+                    <td class="status-text-present">
+                      <strong>96.8%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Web Development</strong>
+                      <span class="cell-subtitle">BSIT 2B</span>
+                    </td>
+                    <td>2026-10-21</td>
+                    <td>28</td>
+                    <td>2</td>
+                    <td class="status-text-absent">1</td>
+                    <td class="status-text-present">
+                      <strong>96.8%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Database Management</strong>
+                      <span class="cell-subtitle">BSIT 2C</span>
+                    </td>
+                    <td>2026-10-21</td>
+                    <td>28</td>
+                    <td>2</td>
+                    <td class="status-text-absent">1</td>
+                    <td class="status-text-present">
+                      <strong>96.8%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Information Systems</strong>
+                      <span class="cell-subtitle">BSIT 3A</span>
+                    </td>
+                    <td>2026-10-21</td>
+                    <td>28</td>
+                    <td>2</td>
+                    <td class="status-text-absent">1</td>
+                    <td class="status-text-present">
+                      <strong>96.8%</strong>
+                    </td>
+                    <td>
+                      <a class="text-action" href="edit-record.html">Edit record</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="table-footer">
+              <span class="small muted">Showing 1–8 of 32 records · sample view</span>
+            </div>
+          </section>
+          <p class="small muted rate-note">Rate = (Present + Late) ÷ (Present + Late + Absent). Excused students are excluded.</p>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

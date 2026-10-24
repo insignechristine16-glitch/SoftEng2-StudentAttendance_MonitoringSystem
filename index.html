@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <!-- Rollcall UI prototype — Laboratory 6, Task 2C. Static sample screens; shared styles: assets/styles.css. -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Student Attendance Monitoring System: HTML/CSS user interface prototype for Laboratory 6, Task 2C.">
+    <title>Sign in · Student Attendance</title>
+    <link rel="stylesheet" href="assets/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <!-- Screen content: layout, input controls, sample output, and linked UI states. -->
+    <main class="login-layout" id="main-content">
+      <section class="login-story">
+        <a class="brand" href="index.html">
+          <span class="brand-mark">
+            <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12L10 17L20 7"></path>
+            </svg>
+          </span>
+          <span>rollcall</span>
+        </a>
+        <div class="login-intro">
+          <p class="eyebrow">Every student. Every session.</p>
+          <h1>A clearer picture<br>of every classroom.</h1>
+          <p>One place to mark attendance, understand patterns, and keep your school connected.</p>
+        </div>
+        <div class="login-roster-card">
+          <p class="eyebrow">Today’s class</p>
+          <h2>Database Management</h2>
+          <p>BSIT 2A · 9:00–10:30 AM</p>
+          <div class="login-roster-row">
+            <span class="user-avatar">AR</span>
+            <span>Alex Reyes</span>
+            <span class="status-chip status-present">Present</span>
+          </div>
+          <div class="login-roster-row">
+            <span class="user-avatar">BC</span>
+            <span>Bea Cruz</span>
+            <span class="status-chip status-present">Present</span>
+          </div>
+        </div>
+        <p class="login-caption">Designed for calmer, more connected school days.</p>
+      </section>
+      <section class="login-form-panel">
+        <div class="login-form">
+          <p class="eyebrow">Student attendance monitoring system</p>
+          <h1>Welcome back.</h1>
+          <p class="page-subtitle">Sign in with your school account to continue.</p>
+          <form method="get" action="dashboard.html">
+            <label class="field">
+              <span class="field-label">School email or student ID</span>
+              <input class="input" type="text" autocomplete="username" value="" placeholder="maria@rollcall.local" required autofocus>
+            </label>
+            <label class="field">
+              <span class="field-label">Password</span>
+              <input class="input" type="password" autocomplete="current-password" placeholder="Enter your password" required>
+            </label>
+            <button class="btn btn-primary login-submit" type="submit">Sign in <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 12H20 M14 6L20 12L14 18"></path>
+              </svg>
+            </button>
+          </form>
+          <details class="login-demo" open>
+            <summary>Explore the prototype</summary>
+            <p class="small muted">Choose a role to preview its screens.</p>
+            <a class="demo-account" href="dashboard.html">
+              <strong>Instructor</strong>
+              <span>View screens</span>
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 12H20 M14 6L20 12L14 18"></path>
+              </svg>
+            </a>
+            <a class="demo-account" href="students.html">
+              <strong>Administrator</strong>
+              <span>View screens</span>
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 12H20 M14 6L20 12L14 18"></path>
+              </svg>
+            </a>
+            <a class="demo-account" href="student.html">
+              <strong>Student</strong>
+              <span>View screens</span>
+              <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 12H20 M14 6L20 12L14 18"></path>
+              </svg>
+            </a>
+          </details>
+          <p class="small">
+            <a href="design-notes.html">Read the UI design notes</a>
+          </p>
+          <p class="small muted">Need an account? Contact your school administrator.</p>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
