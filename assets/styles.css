@@ -1,8 +1,14 @@
+/* Free Google Fonts pairing inspired by the supplied typography reference.
+   System fallbacks keep the UI readable while the web fonts load. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&family=Nunito+Sans:wght@200..900&display=swap");
+
 /* Rollcall UI prototype — shared presentation only.
    Semantic HTML pages contain sample content and linkable design states. */
 
 /* 1. Shared color tokens */
 :root {
+  --font-heading: "Archivo", Arial, sans-serif;
+  --font-body: "Nunito Sans", "Avenir Next", Arial, sans-serif;
   --forest: #102f28;
   --forest-panel: #1c4035;
   --emerald: #176b52;
@@ -24,7 +30,9 @@
 /* 2. Base styles and keyboard focus */
 * { box-sizing: border-box; }
 html { color-scheme: light; }
-body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; font-size: 14px; line-height: 1.5; background: var(--canvas); color: var(--ink); }
+body { margin: 0; font-family: var(--font-body); font-size: 14px; line-height: 1.5; background: var(--canvas); color: var(--ink); }
+/* Headings share the display font; controls and table data inherit the body font. */
+h1, h2, h3, h4, h5, h6, .brand, .page-title, .card-title { font-family: var(--font-heading); }
 button, input, select, textarea { font: inherit; }
 button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 button, a { touch-action: manipulation; }
